@@ -1,5 +1,6 @@
 package com.warm.system.controller;
 
+import com.aliyun.oss.common.auth.ServiceSignature;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.auth.sts.AssumeRoleRequest;
 import com.aliyuncs.auth.sts.AssumeRoleResponse;
@@ -23,6 +24,8 @@ import com.warm.utils.*;
 import com.warm.utils.tulingUtil.JSONUtils;
 import com.warm.utils.tulingUtil.TuLingParam;
 import io.swagger.annotations.Api;
+import io.swagger.models.auth.In;
+import net.bytebuddy.asm.Advice;
 import net.sf.json.JSONObject;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
@@ -102,11 +105,15 @@ public class RobotController {
     @Autowired
     private PersonalNoPhoneRequestTaskTimeService phoneRequestTaskTimeService;
     @Autowired
-    private PersonalNoAccessTockenService accessTockenService;
-    @Autowired
-    private PersonalNoRoadService roadService;
-    @Autowired
     private PersonalNoTempService tempService;
+    @Autowired
+    private PersonalNoAndKeywordService personalNoAndKeywordService;
+    @Autowired
+    private PersonalNoInitiativePersonalService initiativePersonalService;
+    @Autowired
+    private PersonalNoTaskAndKeywordService taskAndKeywordService;
+    @Autowired
+    private PersonalNoTimingNoService timingNoService;
 
     @GetMapping("getID")
     public Object getID(HttpServletRequest request) {
@@ -188,24 +195,15 @@ public class RobotController {
         log.info("开始注册新个人号信息");
         try {
             log.info("根据个人号昵称和工程实例查找个人号列表");
-            List<PersonalNoOperationStockWechatAccount> tempOperationStockWechatAccountList = wechatAccountService.listByNickNameAndInstanceId(newRegisterInfo.nickname, G.ms_OPERATION_PROJECT_INSTANCE_ID);
+//            List<PersonalNoOperationStockWechatAccount> tempOperationStockWechatAccountList = wechatAccountService.listByNickNameAndInstanceId(newRegisterInfo.nickname, G.ms_OPERATION_PROJECT_INSTANCE_ID);
+            PersonalNoOperationStockWechatAccount tempWechatAccount = wechatAccountService.getByWxIdAndInstanceId(newRegisterInfo.username, G.ms_OPERATION_PROJECT_INSTANCE_ID);
             int tempLogicId = -1;
             String retMsg = "";
-            if (tempOperationStockWechatAccountList.size() == 1) {
+            if (!VerifyUtils.isEmpty(tempWechatAccount)) {
                 log.info("如果只存在一个，则进行注册");
-                PersonalNoOperationStockWechatAccount tempWechatAccount = tempOperationStockWechatAccountList.get(0);
                 // 之所以要只更新wxid为空的数据库条目, 是因为怕有昵称重名的
-                if (tempWechatAccount.getWxId() == null || tempWechatAccount.getWxId().equals("")) {
-                    // 注册成功
-                    // 存入数据库
-                    tempWechatAccount.setProjectInstanceRegTime(new Date());
-                    retMsg = "注册成功";
-                } else {
-                    retMsg = "已经注册过";
-                }
-                tempWechatAccount.setWxId(newRegisterInfo.username);
-                String qrCodePath = newRegisterInfo.qrCode;
-                tempWechatAccount.setQrCode(qrCodePath);
+                tempWechatAccount.setProjectInstanceRegTime(new Date());
+                tempWechatAccount.setQrCode(newRegisterInfo.qrCode);
                 tempWechatAccount.setLastUpdateLocalIp(newRegisterInfo.ip);
                 tempWechatAccount.setLastConnectTime(new Date());
                 tempWechatAccount.setClickId(newRegisterInfo.clickId);
@@ -228,6 +226,7 @@ public class RobotController {
                 no.setNickname(tempWechatAccount.getNickName());
                 no.setWxId(tempWechatAccount.getWxId());
                 no.setWxName(tempWechatAccount.getWxIdBieMing());
+                no.setHeadPortraitUrl(tempWechatAccount.getAvatar());
                 if (tempWechatAccount.getQrCode().contains("http://")) {
                     no.setQrCode(tempWechatAccount.getQrCode());
                 } else {
@@ -238,7 +237,7 @@ public class RobotController {
                 no.setPersonalNoCategory("jiazhangjia");
                 boolean save = noService.insertInfo(no);
                 tempLogicId = tempWechatAccount.getId();
-            } else if (tempOperationStockWechatAccountList.size() == 0) {
+            } /*else {
                 //
                 log.info("当前个人号不在数据库中存在");
                 retMsg = "机器人表中不存在当前微信号昵称";
@@ -258,7 +257,7 @@ public class RobotController {
             } else {
                 log.info("发生未知错误，无法解决");
                 throw new Exception("tempOperationStockWechatAccountList.size()=" + tempOperationStockWechatAccountList.size());
-            }
+            }*/
             tempIntegerResponse.code = (SunApiResponse.CODE_SUCCESS);
             tempIntegerResponse.msg = (retMsg);
             tempIntegerResponse.data = (tempLogicId);
@@ -598,7 +597,7 @@ public class RobotController {
             List<PersonalNoTemp> tempList = tempService.listByPersonalWxIdAndTimeAndFlag(tempOSWA.getWxId(), 0);
             if (!VerifyUtils.collectionIsEmpty(tempList)) {
                 for (PersonalNoTemp personalNoTemp : tempList) {
-                    TaskUtiles.toKeyWordTask(map, personalNoTemp.getPersonalNoWxId(), personalNoTemp.getUserWxId(), 3, 0);
+                    TaskUtiles.toKeyWordTask(map, personalNoTemp.getPersonalNoWxId(), personalNoTemp.getUserWxId(), 3, Integer.parseInt(valueTableService.getById(1).getValue())*1000);
                     personalNoTemp.setFlag(1);
                     tempService.updateFlagById(personalNoTemp);
                 }
@@ -755,8 +754,8 @@ public class RobotController {
         PersonalNoPhoneTask byId = null;
         SunTask sunTask = null;
         if (!VerifyUtils.collectionIsEmpty(wxid_o72bs8evoigc22)) {
-            for (PersonalNoPhoneTaskGroup personalNoPhoneTaskGroup : wxid_o72bs8evoigc22) {
-                PersonalNoPhoneTaskGroup taskGroup1 = personalNoPhoneTaskGroup;
+//            for (PersonalNoPhoneTaskGroup personalNoPhoneTaskGroup : wxid_o72bs8evoigc22) {
+                PersonalNoPhoneTaskGroup taskGroup1 = wxid_o72bs8evoigc22.get(0);
                 log.info("找到该任务组要执行的任务");
                 byId = taskService.getOneBytask_group_idAndstep(taskGroup1.getId(), taskGroup1.getNextStep());
                 if (!VerifyUtils.isEmpty(byId) && "未下发".equals(byId.getStatus())) {
@@ -765,7 +764,7 @@ public class RobotController {
                     tempSunTaskList.add(sunTask);
                     log.info("下发完更新任务状态");
                     byId.setStatus("执行中");
-                    boolean b = taskService.updateById(byId);
+                    boolean b = taskService.updateStatusById(byId);
                     if (!b) {
                         throw new RuntimeException("更新任务失败");
                     }
@@ -779,7 +778,7 @@ public class RobotController {
                 if (!update) {
                     throw new RuntimeException("更新任务组失败");
                 }
-            }
+//            }
         }
         return tempSunTaskList;
     }
@@ -830,10 +829,10 @@ public class RobotController {
             log.info("发送文字或图片消息");
             sunTask.setType(byId.getTaskType());
             if ("文字".equals(byId.getContentType())) {
-                if(byId.getContent().split("/").length>1) {
-                    String[] split = byId.getContent().split("/");
+                if (byId.getContent().split("&&").length > 1) {
+                    String[] split = byId.getContent().split("&&");
                     byId.setContent(split[1]);
-                }else {
+                } else {
                     List<Integer> idList = personalNoSmallFaceService.listId();
                     int index = idList.get(new Random().nextInt(idList.size()));
                     PersonalNoSmallFace smallFace = personalNoSmallFaceService.getById(index);
@@ -1063,7 +1062,6 @@ public class RobotController {
             } else {
                 for (int i = 0; i < writePrismRecordInfo.recordList.size(); i++) {
                     log.info("将操作记录插入到数据库");
-//                    PersonalNoPrismRecord currPR = insertPrismRecord(writePrismRecordInfo, request, i);
                     PersonalNoPrismRecord currPR = writePrismRecordInfo.recordList.get(i);
                     if (currPR == null) continue;
                     log.info("获取个人号列表");
@@ -1075,9 +1073,13 @@ public class RobotController {
                         if (VerifyUtils.isEmpty(personalNoPeople)) {
                             personalNoPeople = taskPeopleService.getByPersonalIdAndUserId(currPR.getToUsernames().get(0), currPR.getFromUsername(), 1);
                         }
+                        log.info("获取消息发送延时时间");
                         PersonalNoValueTable byId = valueTableService.getById(1);
+                        log.info("封装消息发送时需要的service对象");
                         Map<String, Object> map = TaskUtiles.getMap(taskPeopleService, taskGroupService, noTaskService, taskService, keywordService);
+                        List<String> timingNoList = timingNoService.listWxidList();
                         if (!VerifyUtils.isEmpty(personalNoPeople)) {
+                            log.info("通道进来的好友");
                             b = false;
                             log.info("根据个人号wxid和用户微信id下发任务");
                             log.info("发送自动回复内容给好友");
@@ -1085,7 +1087,9 @@ public class RobotController {
                             log.info("添加任务开课提醒");
                             TaskUtiles.toRemindTask(map, remindFlagService, personalNoPeople.getPersonalNoWxId(), personalNoPeople.getPersonalFriendWxId(), personalNoPeople.getPersonalTaskId(), 0);
                             log.info("添加一个定时任务");
-                            TaskUtiles.toKeyWordTask(map, personalNoPeople.getPersonalNoWxId(), personalNoPeople.getPersonalFriendWxId(), 2, Integer.parseInt(valueTableService.getById(4).getValue()) * 1000);
+                            if(timingNoList.contains(personalNoPeople.getPersonalNoWxId())) {
+                                TaskUtiles.toKeyWordTask(map, personalNoPeople.getPersonalNoWxId(), personalNoPeople.getPersonalFriendWxId(), 2, Integer.parseInt(valueTableService.getById(4).getValue()) * 1000);
+                            }
                             taskPeopleService.updateFlagById(personalNoPeople.getId(), 2);
                             log.info("根据任务id获取要发送的任务信息");
                             PersonalNoTask taskById = noTaskService.getTaskById(personalNoPeople.getPersonalTaskId());
@@ -1095,6 +1099,8 @@ public class RobotController {
                             toAutoRmindTask(currPR, taskById);
                         } else {
                             if (personlaWxIdList.contains(currPR.getToUsernames().get(0))) {
+                                log.info("非通道进来的好友");
+                                log.info("添加好友信息");
                                 PersonalNoFriends byPersonalWxIdAndUserWxId = friendsService.getByPersonalWxIdAndUserWxId(currPR.getToUsernames().get(0), currPR.getFromUsername());
                                 if (VerifyUtils.isEmpty(byPersonalWxIdAndUserWxId)) {
                                     b = false;
@@ -1117,28 +1123,35 @@ public class RobotController {
                                     personalNoFriends.setUserWxId(currPR.getFromUsername());
                                     friendsService.insert(personalNoFriends);
                                     List<String> autoReplayNos = autoReplayNoService.listWxId();
-                                    if (!autoReplayNos.contains(currPR.getToUsernames().get(0))) {
+                                    log.info("发送问候消息");
+                                    if (autoReplayNos.contains(currPR.getToUsernames().get(0))) {
                                         map.put("keywordService", keywordService);
                                         map.put("keywordContentServicec", keywordContentServicec);
                                         TaskUtiles.toKeyWordTask(map, currPR.getToUsernames().get(0), currPR.getFromUsername(), 1, Integer.parseInt(byId.getValue()) * 1000);
+                                    }
+                                    log.info("添加一个定时任务");
+                                    if(timingNoList.contains(currPR.getToUsernames().get(0))) {
+                                        TaskUtiles.toKeyWordTask(map, currPR.getToUsernames().get(0), currPR.getFromUsername(), 2, Integer.parseInt(valueTableService.getById(4).getValue()) * 1000);
                                     }
                                 }
                             }
                         }
                         log.info("判断是否是审核图片");
-                        b = toAuditTask(writePrismRecordInfo, currPR);
-                        log.info("开始处理关键词回复");
-                        b = toKeyWordTask(writePrismRecordInfo, currPR);
+//                        b = toAuditTask(writePrismRecordInfo, currPR);
+                        log.info("开始处理个人号关键词回复：个人号关键词和任务关键词");
+                        List<PersonalNoPeople> peopleList = taskPeopleService.listByPersonalIdAndUserId(currPR.getToUsernames().get(0), currPR.getFromUsername(), 2);
+                        b = toKeyWordTask(writePrismRecordInfo, currPR , peopleList);
                         log.info("将用户消息转发给运营或将运营消息转发给用户");
                         sendMessageToManager(writePrismRecordInfo, personlaWxIdList);
                         log.info("将小程序转换成链接");
                         getSmallParamUrl(writePrismRecordInfo, personlaWxIdList);
                         log.info("机器人回复");
                         if (b) {
-                            toTuLingMessage(writePrismRecordInfo, currPR);
+                            toTuLingMessage(writePrismRecordInfo, currPR, personlaWxIdList);
                         }
                         log.info("第一条消息插入到数据库，如果指定时间内没有说话则发送一条默认信息");
-                        toAuToSayHello(currPR, personlaWxIdList, map);
+                        List<String> initiativePersonalWxIdlist =  initiativePersonalService.listWxIdList();
+                        toAuToSayHello(currPR, initiativePersonalWxIdlist, map);
                     }
                 }
             }
@@ -1152,12 +1165,15 @@ public class RobotController {
         }
     }
     //机器人回复
-    private void toTuLingMessage(@RequestBody WritePrismRecordInfo writePrismRecordInfo, PersonalNoPrismRecord currPR) {
+    private void toTuLingMessage(@RequestBody WritePrismRecordInfo writePrismRecordInfo, PersonalNoPrismRecord currPR, List<String> personlaWxIdList) {
+        if(personlaWxIdList.contains(currPR.getFromUsername())){
+            return;
+        }
         String params = TuLingParam.getParams(writePrismRecordInfo.recordList.get(0).getContent(), "");
         String s = HttpClientUtil.sendPost("http://openapi.tuling123.com/openapi/api/v2", params);
         TuLingResult tuLingResult = JSONUtils.jsonToPojo(s, TuLingResult.class);
         log.info("机器人回复");
-        if(tuLingResult.getIntent().getCode() == 10004 || tuLingResult.getIntent().getCode() == 10008){
+        if (tuLingResult.getIntent().getCode() == 10004 || tuLingResult.getIntent().getCode() == 10008) {
             PersonalNoPhoneTaskGroup taskGroup = new PersonalNoPhoneTaskGroup();
             taskGroup.setStatus("未下发");
             log.info("去重用");
@@ -1180,30 +1196,25 @@ public class RobotController {
             task.setStep(1);
             task.setRobotId(currPR.getFromUsername());
             task.setCreateTime(new Date());
-            task.setContent("1/" + tuLingResult.getResults().get(0).getValues().getText());
+            task.setContent("1&&" + tuLingResult.getResults().get(0).getValues().getText());
             task.setContentType("文字");
             boolean save1 = taskService.insert(task);
         }
     }
-
     //主动回复消息
-    private void toAuToSayHello(PersonalNoPrismRecord currPR, List<String> personlaWxIdList, Map<String, Object> map) {
-        PersonalNoTemp personalNoTemp = tempService.getByPersonalIdAndUserWxId(currPR.getToUsernames().get(0), currPR.getFromUsername());
-        if (personlaWxIdList.contains(currPR.getToUsernames().get(0))) {
-            List<String> list = autoReplayNoService.listWxId();
-            if (!list.contains(currPR.getToUsernames().get(0))) {
-                if (VerifyUtils.isEmpty(personalNoTemp)) {
-                    personalNoTemp = new PersonalNoTemp();
-                    personalNoTemp.setCreateTime(new Date());
-                    personalNoTemp.setPersonalNoWxId(currPR.getToUsernames().get(0));
-                    personalNoTemp.setUserWxId(currPR.getFromUsername());
-                    personalNoTemp.setFlag(0);
-                    tempService.insertPersonalNoTemp(personalNoTemp);
-                }
+    private void toAuToSayHello(PersonalNoPrismRecord currPR, List<String> initiativePersonalWxIdlist, Map<String, Object> map) {
+        if (initiativePersonalWxIdlist.contains(currPR.getToUsernames().get(0))) {
+            PersonalNoTemp personalNoTemp = tempService.getByPersonalIdAndUserWxId(currPR.getToUsernames().get(0), currPR.getFromUsername());
+            if (VerifyUtils.isEmpty(personalNoTemp)) {
+                personalNoTemp = new PersonalNoTemp();
+                personalNoTemp.setCreateTime(new Date());
+                personalNoTemp.setPersonalNoWxId(currPR.getToUsernames().get(0));
+                personalNoTemp.setUserWxId(currPR.getFromUsername());
+                personalNoTemp.setFlag(0);
+                tempService.insertPersonalNoTemp(personalNoTemp);
             }
         }
     }
-
     //将操作记录插入到数据库
     private PersonalNoPrismRecord insertPrismRecord(@RequestBody WritePrismRecordInfo writePrismRecordInfo, HttpServletRequest request, int i) {
         String tempStr;//避免重复提交
@@ -1273,7 +1284,7 @@ public class RobotController {
         }
         return currPR;
     }
-
+//  得到小程序链接或语音消息链接
     private void getSmallParamUrl(@RequestBody WritePrismRecordInfo writePrismRecordInfo, List<String> personlaWxIdList) {
         List<String> strings = valueTableService.listWxIdByType(0);
         if (!strings.contains(writePrismRecordInfo.recordList.get(0).getFromUsername())) {
@@ -1299,7 +1310,7 @@ public class RobotController {
                 task.setTname("返回小程序");
                 task.setCreateTime(new Date());
                 if (writePrismRecordInfo.recordList.get(0).getContent().contains(".amr")) {
-                    writePrismRecordInfo.recordList.get(0).setContent(qrurl + writePrismRecordInfo.recordList.get(0).getContent());
+                    writePrismRecordInfo.recordList.get(0).setContent(writePrismRecordInfo.recordList.get(0).getContent());
                 }
                 task.setContent(writePrismRecordInfo.recordList.get(0).getContent());
                 task.setContentType("文字");
@@ -1312,8 +1323,6 @@ public class RobotController {
 //     *
 //     * @param currPR
 //     * @param taskById
-
-
     private void toAddFriendLableTask(PersonalNoPrismRecord currPR, PersonalNoTask taskById) {
         if (!VerifyUtils.collectionIsEmpty(taskById.getNoLableList())) {
             PersonalNoPhoneTaskGroup taskGroup = new PersonalNoPhoneTaskGroup();
@@ -1349,8 +1358,6 @@ public class RobotController {
 //     * 删除好友任务
 //     *
 //     * @param writePrismRecordInfo
-
-
     private void toDeleteFriendTask(@RequestBody WritePrismRecordInfo writePrismRecordInfo) {
         PersonalNoOperationStockWechatAccount byId = wechatAccountService.getByLogicId(writePrismRecordInfo.recordList.get(0).getLogicId());
         PersonalNoPhoneTaskGroup taskGroup = new PersonalNoPhoneTaskGroup();
@@ -1375,73 +1382,95 @@ public class RobotController {
         }
         log.info("删除任务粉丝数据");
         List<Integer> peopleIdList = taskPeopleService.listIdByPersonalWxIdAndUserWxId(byId.getWxId(), writePrismRecordInfo.recordList.get(0).getFromUsername());
-        taskPeopleService.deleteBatchIds(peopleIdList);
+        if(!VerifyUtils.collectionIsEmpty(peopleIdList)) {
+            taskPeopleService.deleteByIds(peopleIdList);
+        }
         log.info("删除个人号好友数据");
         List<Integer> personalNoFriendsIdList = friendsService.listByPersonalWxIdAndUserWxId(byId.getWxId(), writePrismRecordInfo.recordList.get(0).getFromUsername());
-        friendsService.deleteBatchIds(personalNoFriendsIdList);
+        if(!VerifyUtils.collectionIsEmpty(personalNoFriendsIdList)) {
+            friendsService.deleteByIds(personalNoFriendsIdList);
+        }
     }
 
-//*
+    //*
 //     * 关键字任务
 //     *
 //     * @param writePrismRecordInfo
 //     * @param currPR
-
-
-    private boolean toKeyWordTask(@RequestBody WritePrismRecordInfo writePrismRecordInfo, PersonalNoPrismRecord currPR) {
+    private boolean toKeyWordTask(@RequestBody WritePrismRecordInfo writePrismRecordInfo, PersonalNoPrismRecord currPR,List<PersonalNoPeople> personalNoPeople) {
+        log.info("开始匹配任务和关键词");
+        log.info("根据任务id取得所有的关键词");
+        Integer keywordId = null;
         String content = writePrismRecordInfo.recordList.get(0).getContent();
-        List<PersonalNoKeyword> list = keywordService.listAll();
-        if (!VerifyUtils.isEmpty(content)) {
-            for (PersonalNoKeyword personalNoKeyword : list) {
-                if (content.equals(personalNoKeyword.getKeyword())) {
-                    List<PersonalNoKeywordContent> keywordContentList = keywordContentServicec.listByKeywordId(personalNoKeyword.getId());
-                    log.info("触发关键字");
-                    PersonalNoPhoneTaskGroup taskGroup = new PersonalNoPhoneTaskGroup();
-                    taskGroup.setStatus("未下发");
-                    taskGroup.setCurrentRobotId(currPR.getToUsernames().get(0));
-                    taskGroup.setNextStep(1);
-                    taskGroup.setTotalStep(keywordContentList.size());
-                    taskGroup.setTname(currPR.getToUsernames().get(0) + "发送关键字给" + currPR.getFromUsername());
-                    taskGroup.setCreateTime(new Date());
-                    taskGroup.setTaskOrder(0);
-                    boolean save = taskGroupService.insert(taskGroup);
-                    if (!save) {
-                        log.error("插入任务组失败");
-                        throw new RuntimeException("插入任务组失败");
-                    }
-                    for (int j = 0; j < keywordContentList.size(); j++) {
-                        PersonalNoPhoneTask task = new PersonalNoPhoneTask();
-                        task.setTaskGroupId(taskGroup.getId());
-                        if ("邀请入群".equals(keywordContentList.get(j).getContentType())) {
-                            task.setTaskGroupId(taskGroup.getId());
-                            task.setStatus("未下发");
-                            task.setTname(currPR.getToUsernames().get(0) + "发送入群邀请给" + currPR.getFromUsername());
-                            task.setTaskType(1102);
-                            task.setContent(keywordContentList.get(j).getContent());
-                            task.setContentType(keywordContentList.get(j).getContentType());
-                            task.setRobotId(currPR.getFromUsername());
-                            task.setStep(j + 1);
-                        } else {
-                            task.setTaskType(100);
-                            task.setTname(currPR.getToUsernames().get(0) + "发送关键词消息给" + currPR.getFromUsername());
-                            task.setStatus("未下发");
-                            task.setStep(j + 1);
-                            task.setRobotId(currPR.getFromUsername());
-                            task.setCreateTime(new Date());
-                            task.setContent(keywordContentList.get(j).getContent());
-                            task.setContentType(keywordContentList.get(j).getContentType());
-                        }
-                        boolean save1 = taskService.insert(task);
-                        if (!save1) {
-                            log.error("插入关键词回复任务失败");
-                            throw new RuntimeException("插入关键词回复任务失败");
-                        }
-                    }
-                    return true;
+        if(VerifyUtils.isEmpty(content)){
+            return true;
+        }
+        boolean flag = true;
+        if(!VerifyUtils.collectionIsEmpty(personalNoPeople)){
+            for (PersonalNoPeople people : personalNoPeople) {
+                PersonalNoTaskAndKeyword taskAndKeyword = taskAndKeywordService.getByTaskIdAndKeywordName(people.getPersonalTaskId(),content);
+                if (!VerifyUtils.isEmpty(taskAndKeyword)) {
+                    keywordId = taskAndKeyword.getKeywordId();
+                    flag = addKeyWordTask(currPR, keywordId);
                 }
             }
         }
-        return true;
+        if(flag){
+            PersonalNoAndKeyword noAndKeyword = personalNoAndKeywordService.listByWxIdAndKeyword(currPR.getToUsernames().get(0), content);
+            if(!VerifyUtils.isEmpty(noAndKeyword)){
+                keywordId = noAndKeyword.getKeywordId();
+                addKeyWordTask(currPR, keywordId);
+            }
+        }
+        return flag;
+    }
+    private boolean addKeyWordTask(PersonalNoPrismRecord currPR, Integer keywordId) {
+        if(!VerifyUtils.isEmpty(keywordId)) {
+            List<PersonalNoKeywordContent> keywordContentList = keywordContentServicec.listByKeywordId(keywordId);
+            log.info("触发任务关键字");
+            PersonalNoPhoneTaskGroup taskGroup = new PersonalNoPhoneTaskGroup();
+            taskGroup.setStatus("未下发");
+            taskGroup.setCurrentRobotId(currPR.getToUsernames().get(0));
+            taskGroup.setNextStep(1);
+            taskGroup.setTotalStep(keywordContentList.size());
+            taskGroup.setTname(currPR.getToUsernames().get(0) + "发送任务关键字给" + currPR.getFromUsername());
+            taskGroup.setCreateTime(new Date());
+            taskGroup.setTaskOrder(0);
+            boolean save = taskGroupService.insert(taskGroup);
+            if (!save) {
+                log.error("插入任务组失败");
+                throw new RuntimeException("插入任务组失败");
+            }
+            for (int j = 0; j < keywordContentList.size(); j++) {
+                PersonalNoPhoneTask task = new PersonalNoPhoneTask();
+                task.setTaskGroupId(taskGroup.getId());
+                if ("邀请入群".equals(keywordContentList.get(j).getContentType())) {
+                    task.setTaskGroupId(taskGroup.getId());
+                    task.setStatus("未下发");
+                    task.setTname(currPR.getToUsernames().get(0) + "发送入群邀请给" + currPR.getFromUsername());
+                    task.setTaskType(1102);
+                    task.setContent(keywordContentList.get(j).getContent());
+                    task.setContentType(keywordContentList.get(j).getContentType());
+                    task.setRobotId(currPR.getFromUsername());
+                    task.setStep(j + 1);
+                } else {
+                    task.setTaskType(100);
+                    task.setTname(currPR.getToUsernames().get(0) + "发送关键词消息给" + currPR.getFromUsername());
+                    task.setStatus("未下发");
+                    task.setStep(j + 1);
+                    task.setRobotId(currPR.getFromUsername());
+                    task.setCreateTime(new Date());
+                    task.setContent(keywordContentList.get(j).getContent());
+                    task.setContentType(keywordContentList.get(j).getContentType());
+                }
+                boolean save1 = taskService.insert(task);
+                if (!save1) {
+                    log.error("插入关键词回复任务失败");
+                    throw new RuntimeException("插入关键词回复任务失败");
+                }
+            }
+        }
+        return false;
     }
 
     //*
@@ -1451,10 +1480,10 @@ public class RobotController {
 //     * @param currPR
     private boolean toAuditTask(@RequestBody WritePrismRecordInfo writePrismRecordInfo, PersonalNoPrismRecord currPR) {
         PersonalNoPeople personalNoPeople;
-        if (writePrismRecordInfo.recordList.get(0).getContent().contains("/robotFiles/imgMsg")) {
+        if (writePrismRecordInfo.recordList.get(0).getContent().contains("/robotFiles/imgMsg") || writePrismRecordInfo.recordList.get(0).getContent().contains("http://")) {
             personalNoPeople = taskPeopleService.getByPersonalIdAndUserId(currPR.getToUsernames().get(0), currPR.getFromUsername(), 2);
             if (!VerifyUtils.isEmpty(personalNoPeople)) {
-                boolean b2 = taskPeopleService.updateFlagById(personalNoPeople.getId(),3);
+                boolean b2 = taskPeopleService.updateFlagById(personalNoPeople.getId(), 3);
                 if (!b2) {
                     log.info("更新任务粉丝为已审核通过状态失败");
                     throw new RuntimeException("更新任务粉丝为已审核通过状态失败");
@@ -1504,8 +1533,6 @@ public class RobotController {
 //     * 开课提醒任务
 //     * @param currPR
 //     * @param taskById
-
-
     private void toAutoRmindTask(PersonalNoPrismRecord currPR, PersonalNoTask taskById) {
         boolean save;
         if ("0".equals(taskById.getAutoRemind())) {
@@ -1565,8 +1592,6 @@ public class RobotController {
 //     *
 //     * @param currPR
 //     * @param taskById
-//
-
     private void addAutoReplyTask(PersonalNoPrismRecord currPR, PersonalNoTask taskById) {
         PersonalNoPhoneTaskGroup taskGroup = new PersonalNoPhoneTaskGroup();
         taskGroup.setCreateTime(new Date());
@@ -1700,6 +1725,57 @@ public class RobotController {
             log.info(friendRequestInfoWarpper);
             PersonalNoOperationStockWechatAccount byId = wechatAccountService.getByLogicId(friendRequestInfoWarpper.logicId);
             PersonalNoBlacklist blacklist = blacklistService.getByWxId(friendRequestInfo.getUsername());
+            PersonalNoUser user = null;
+            log.info("处理用户表的数据");
+            List<PersonalNoUser> userList = userService.getByNickName(friendRequestInfo.getNickname());
+            if (!VerifyUtils.collectionIsEmpty(userList)) {
+                user = userList.get(0);
+                if (!VerifyUtils.isEmpty(user)) {
+                    user.setWxId(friendRequestInfo.getUsername());
+                    boolean b = userService.updateById(user);
+                    if (!b) {
+                        log.info("处理用户表失败");
+                        throw new RuntimeException("处理用户表失败");
+                    }
+                    log.info("处理用户粉丝表的数据");
+                    List<PersonalNoPeople> peopleList = taskPeopleService.getByPersonalWxIdAndUserName(byId.getWxId(), user.getUnionid());
+                    if (!VerifyUtils.collectionIsEmpty(peopleList)) {
+                        PersonalNoPeople people = peopleList.get(0);
+                        people.setPersonalFriendWxId(friendRequestInfo.getUsername());
+                        b = taskPeopleService.updateById(people);
+                        if (!b) {
+                            log.info("处理用户表失败");
+                            throw new RuntimeException("处理用户表失败");
+                        }
+                        log.info("处理好友信息的数据");
+                        PersonalNoFriends friends = friendsService.getByPersonalIdAndUserWxId(friendRequestInfoWarpper.logicId, friendRequestInfo.getUsername());
+                        if (VerifyUtils.isEmpty(friends)) {
+                            friends = new PersonalNoFriends();
+                        }
+                        friends.setPersonalNoId(friendRequestInfoWarpper.logicId);
+                        friends.setUserId(user.getId());
+                        friends.setUserWxId(friendRequestInfo.getUsername());
+                        friends.setPersonalNoWxId(byId.getWxId());
+                        friends.setBeFriendTime(new Date());
+                        boolean save1 = friendsService.insert(friends);
+                        if (!save1) {
+                            log.info("添加个人号好友信息失败");
+                            throw new RuntimeException("添加个人号好友信息失败");
+                        }
+                    }
+                }
+            }
+            log.info("更新个人号好友数量和待通过好友人数");
+            PersonalNo byWxId = noService.getByWxId(byId.getWxId());
+            if (!VerifyUtils.isEmpty(byId)) {
+                byWxId.setWaitingPassNum(byWxId.getWaitingPassNum() > 0 ? byWxId.getWaitingPassNum() - 1 : 0);
+                byWxId.setFriendsNum(byWxId.getFriendsNum() + 1);
+                boolean b1 = noService.updateById(byWxId);
+                if (!b1) {
+                    log.info("更新个人号好友数量和待通过好友人数失败");
+                    throw new RuntimeException("更新个人号好友数量和待通过好友人数失败");
+                }
+            }
             if (!VerifyUtils.isEmpty(byId) && byId.getOperationProjectInstanceId() == G.ms_OPERATION_PROJECT_INSTANCE_ID) {
                 if (VerifyUtils.isEmpty(blacklist)) {
                     log.info("不在黑名单内，开始处理");
@@ -1714,59 +1790,27 @@ public class RobotController {
                                 toAddFriendTask(friendRequestInfo, byId);
                             }
                         }
-                        log.info("处理用户表的数据");
-                        List<PersonalNoUser> userList = userService.getByNickName(friendRequestInfo.getNickname());
-                        if (!VerifyUtils.collectionIsEmpty(userList)) {
-                            PersonalNoUser user = userList.get(0);
-                            if (!VerifyUtils.isEmpty(user)) {
-                                user.setWxId(friendRequestInfo.getUsername());
-                                boolean b = userService.updateById(user);
-                                if (!b) {
-                                    log.info("处理用户表失败");
-                                    throw new RuntimeException("处理用户表失败");
-                                }
-                                log.info("处理用户粉丝表的数据");
-                                List<PersonalNoPeople> peopleList = taskPeopleService.getByPersonalWxIdAndUserName(byId.getWxId(), user.getOpenid());
-                                if (!VerifyUtils.collectionIsEmpty(peopleList)) {
-                                    PersonalNoPeople people = peopleList.get(0);
-                                    people.setPersonalFriendWxId(friendRequestInfo.getUsername());
-                                    b = taskPeopleService.updateById(people);
-                                    if (!b) {
-                                        log.info("处理用户表失败");
-                                        throw new RuntimeException("处理用户表失败");
-                                    }
-                                    log.info("处理好友信息的数据");
-                                    PersonalNoFriends friends = friendsService.getByPersonalIdAndUserWxId(friendRequestInfoWarpper.logicId, friendRequestInfo.getUsername());
-                                    if (VerifyUtils.isEmpty(friends)) {
-                                        friends = new PersonalNoFriends();
-                                    }
-                                    friends.setPersonalNoId(friendRequestInfoWarpper.logicId);
-                                    friends.setUserId(user.getId());
-                                    friends.setUserWxId(friendRequestInfo.getUsername());
-                                    friends.setPersonalNoWxId(byId.getWxId());
-                                    friends.setBeFriendTime(new Date());
-                                    boolean save1 = friendsService.insert(friends);
-                                    if (!save1) {
-                                        log.info("添加个人号好友信息失败");
-                                        throw new RuntimeException("添加个人号好友信息失败");
-                                    }
-                                }
-                            }
-                        }
-                        log.info("更新个人号好友数量和待通过好友人数");
-                        PersonalNo byWxId = noService.getByWxId(byId.getWxId());
-                        if (!VerifyUtils.isEmpty(byId)) {
-                            byWxId.setWaitingPassNum(byWxId.getWaitingPassNum() > 0 ? byWxId.getWaitingPassNum() - 1 : 0);
-                            byWxId.setFriendsNum(byWxId.getFriendsNum() + 1);
-                            boolean b1 = noService.updateById(byWxId);
-                            if (!b1) {
-                                log.info("更新个人号好友数量和待通过好友人数失败");
-                                throw new RuntimeException("更新个人号好友数量和待通过好友人数失败");
-                            }
-                        }
                     } else {
                         log.info("添加好友任务");
                         toAddFriendTask(friendRequestInfo, byId);
+                    }
+                }
+                log.info("处理注册个人号");
+                List<String> list = valueTableService.listWxIdByType(3);
+                if(!VerifyUtils.isEmpty(list) && list.contains(byId.getWxId())){
+                    user = userService.getByWxId(friendRequestInfo.getUsername());
+                    if(!VerifyUtils.isEmpty(user.getWxId())) {
+                        PersonalNoOperationStockWechatAccount temp = wechatAccountService.getByWxIdAndInstanceId(friendRequestInfo.getUsername(), G.ms_OPERATION_PROJECT_INSTANCE_ID);
+                        if (VerifyUtils.isEmpty(temp)) {
+                            temp = new PersonalNoOperationStockWechatAccount();
+                        }
+                        temp.setWxId(user.getWxId());
+                        temp.setAssignPhone(user.getPhone());
+                        temp.setAvatar(user.getHeadPortrait());
+                        temp.setNickName(user.getNickName());
+                        temp.setCity(user.getAddress());
+                        temp.setOperationProjectInstanceId(G.ms_OPERATION_PROJECT_INSTANCE_ID);
+                        wechatAccountService.addWeChat(temp);
                     }
                 }
             }
@@ -1879,7 +1923,7 @@ public class RobotController {
             log.info("处理个人号好友表");
             for (PersonalNoFriends friend : friends) {
                 List<Integer> peopleIdList = taskPeopleService.listIdByPersonalWxIdAndUserWxId(uploadFriendListInfo.username, friend.getUserWxId());
-                taskPeopleService.deleteBatchIds(peopleIdList);
+                taskPeopleService.deleteByIds(peopleIdList);
             }
             log.info("处理原有的微信好友");
             PersonalNoOperationStockWechatAccount noByWxIdAndInstanceId = wechatAccountService.getByWxIdAndInstanceId(uploadFriendListInfo.username, 0);
@@ -1922,20 +1966,20 @@ public class RobotController {
 
     // signContent4OSS_应该是跟阿里云OSS相关
     @GetMapping("signContent4OSS.do")
-    public String signContent4OSSGet() {
-        JSONObject ja1 = getSignContent4OSSJsonObject();
-        return ja1.toString();
+    public void signContent4OSSGet(HttpServletRequest request, HttpServletResponse response) {
+        WebConst.insertRequseException(requestExceptionService, request, response, "");
+        return;
     }
 
     @PostMapping("signContent4OSS.do")
-    public String signContent4OSS() {
+    public SunApiResponse signContent4OSS(@RequestBody SignContent4OSSInfo signContent4OSSInfo) {
         //SignContent4OSSInfo signContent4OSSInfo = G.ms_om.readValue(requestInfo, SignContent4OSSInfo.class);
-        JSONObject ja1 = getSignContent4OSSJsonObject();
-        return ja1.toString();
+        SunApiResponse ja1 = getSignContent4OSSJsonObject(signContent4OSSInfo);
+        return ja1;
     }
 
-    private JSONObject getSignContent4OSSJsonObject() {
-        Map<String, String> respMap = new LinkedHashMap<String, String>();
+    private SunApiResponse getSignContent4OSSJsonObject(SignContent4OSSInfo signContent4OSSInfo) {
+        SunApiResponse tempSunApiResponse = new SunApiResponse();
         try {
             // 读取配置文件。
             Properties prop = new Properties();
@@ -1954,29 +1998,15 @@ public class RobotController {
             // 但是注意RoleSessionName的长度和规则，不要有空格，只能有'-' '_' 字母和数字等字符
             // 具体规则请参考API文档中的格式要求
             String roleSessionName = "alice-001";
-
             // 此处必须为 HTTPS
             ProtocolType protocolType = ProtocolType.HTTPS;
-
-            final AssumeRoleResponse stsResponse = assumeRole(accessKeyId, accessKeySecret, roleArn, roleSessionName, policy, protocolType, durationSeconds);
-
-            respMap.put("StatusCode", "200");
-            respMap.put("AccessKeyId", stsResponse.getCredentials().getAccessKeyId());
-            respMap.put("AccessKeySecret", stsResponse.getCredentials().getAccessKeySecret());
-            respMap.put("SecurityToken", stsResponse.getCredentials().getSecurityToken());
-            respMap.put("Expiration", stsResponse.getCredentials().getExpiration());
-        } catch (ClientException e) {
-            e.printStackTrace();
-            respMap.put("StatusCode", "500");
-            respMap.put("ErrorCode", e.getErrCode());
-            respMap.put("ErrorMessage", e.getErrCode());
+            String signed = ServiceSignature.create().computeSignature(accessKeySecret, signContent4OSSInfo.content);
+            tempSunApiResponse.setCode(tempSunApiResponse.CODE_SUCCESS);
+            tempSunApiResponse.setData("OSS " + accessKeyId + ":" + signed);
         } catch (Exception e) {
             e.printStackTrace();
-            respMap.put("StatusCode", "500");
-            respMap.put("ErrorMessage", e.getMessage());
         }
-
-        return JSONObject.fromObject(respMap);
+        return tempSunApiResponse;
     }
 
     private static final long serialVersionUID = 5522372203700422672L;

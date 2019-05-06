@@ -41,4 +41,6 @@ public interface PersonalNoFriendsService extends IService<PersonalNoFriends> {
     boolean deleteFriends(String personalWxId, List<PersonalNoUser> users);
 
     boolean blackFriends(String personalWxId, PersonalNoUser user);
+
+    void deleteByIds(List<Integer> personalNoFriendsIdList);
 }

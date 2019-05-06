@@ -49,4 +49,9 @@ public class PersonalNoPhoneTaskServiceImpl extends ServiceImpl<PersonalNoPhoneT
     public void deleteByTaskGrouPId(Integer id) {
         taskMapper.deleteByTaskGrouPId(id);
     }
+
+    @Override
+    public boolean updateStatusById(PersonalNoPhoneTask byId) {
+        return taskMapper.updateStatusById(byId.getStatus(),byId.getId());
+    }
 }

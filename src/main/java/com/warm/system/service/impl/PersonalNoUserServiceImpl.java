@@ -54,14 +54,7 @@ public class PersonalNoUserServiceImpl extends ServiceImpl<PersonalNoUserMapper,
      */
     @Override
     public List<PersonalNoUser> getByNickName(String nickname) {
-        EntityWrapper<PersonalNoUser> entityWrapper = new EntityWrapper<>();
-        entityWrapper.orderDesc(Arrays.asList(new String[]{"id"}));
-        entityWrapper.eq("nick_name", nickname);
-        long time = new Date().getTime();
-        long startTime =  time - 360000L;
-        long endTime = time + 10000L;
-        entityWrapper.between("create_time", new Date(startTime), new Date(endTime));
-        return baseMapper.selectList(entityWrapper);
+        return userMapper.listByNickName(nickname);
     }
 
     /**

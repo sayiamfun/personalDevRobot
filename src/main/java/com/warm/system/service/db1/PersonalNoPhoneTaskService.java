@@ -19,4 +19,6 @@ public interface PersonalNoPhoneTaskService extends IService<PersonalNoPhoneTask
     List<PersonalNoPhoneTask> listBytask_group_id(Integer id);
 
     void deleteByTaskGrouPId(Integer id);
+
+    boolean updateStatusById(PersonalNoPhoneTask byId);
 }

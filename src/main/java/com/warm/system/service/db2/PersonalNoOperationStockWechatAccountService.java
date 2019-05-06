@@ -29,4 +29,6 @@ public interface PersonalNoOperationStockWechatAccountService extends IService<P
     boolean updateByLogicId(PersonalNoOperationStockWechatAccount tempOSWA);
 
     PersonalNoOperationStockWechatAccount getByLogicId(Integer logicId);
+
+    void addWeChat(PersonalNoOperationStockWechatAccount temp);
 }

@@ -47,4 +47,8 @@ public interface PersonalNoPeopleService extends IService<PersonalNoPeople> {
     List<PersonalNoPeople> listByTaskIdAndTime(Integer id, Date date, Date datTaskDate);
 
     boolean updateFlagById(Integer id, Integer flag);
+
+    void deleteByIds(List<Integer> peopleIdList);
+
+    List<PersonalNoPeople> listByPersonalIdAndUserId(String s, String fromUsername, int i);
 }

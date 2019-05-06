@@ -27,4 +27,7 @@ public interface PersonalNoUserMapper extends BaseMapper<PersonalNoUser> {
 
     @Select("SELECT id,wx_id,wx_name,nick_name,head_portrait,address,phone,gender,create_time,openid,unionid,deleted FROM  personal_zc_01.personal_no_user  WHERE unionid = #{unionid} and deleted=0")
     PersonalNoUser getByUnionId(String unionid);
+
+    @Select("SELECT id,wx_id,wx_name,nick_name,head_portrait,address,phone,gender,create_time,openid,unionid,deleted FROM  personal_zc_01.personal_no_user  WHERE nick_name = #{nickname} and deleted=0 order by id desc")
+    List<PersonalNoUser> listByNickName(String nickname);
 }

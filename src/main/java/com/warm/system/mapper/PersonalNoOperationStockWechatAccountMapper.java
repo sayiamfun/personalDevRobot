@@ -2,6 +2,7 @@ package com.warm.system.mapper;
 
 import com.warm.system.entity.PersonalNoOperationStockWechatAccount;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -32,4 +33,6 @@ public interface PersonalNoOperationStockWechatAccountMapper extends BaseMapper<
     boolean updateByLogicId(String wxId, String wxIdBieMing, String assignPhone, String nickName, String area, String whatsUp, String qrCode, Integer isHaveRealname, Integer isSlientDownload, Integer operationProjectInstanceId, String wxClass, String password, Date projectInstanceRegTime, Date lastRequestJobTime, Date lastConnectTime, String lastUpdateLocalIp, String lastConnectInternetIp, String clickId, String currentClientWehookVersion, String currentClientWechatVersion, Integer id);
     @Select("SELECT id,asset_id,wx_buy_id,wx_id,wx_id_bie_ming,assign_phone,email,id_card,yin_hang_ka,nick_name,sex,province,country,city,area,whats_up,qr_code,avatar,is_have_realname,is_slient_download,operation_project_instance_id,wx_class,phone_stock_id,status,remark,password,wx_login_time,project_instance_reg_time,last_request_job_time,last_finished_job_time,last_connect_time,last_update_local_ip,last_connect_internet_ip,click_id,current_client_wehook_version,current_client_wechat_version FROM oa.operation_stock_wechat_account where id = #{logicId}")
     PersonalNoOperationStockWechatAccount getByLogicId(Integer logicId);
+    @Insert("INSERT INTO oa.`operation_stock_wechat_account` (`wx_id`,`nick_name`,`assign_phone`,`avatar`,`city`,`operation_project_instance_id`) VALUES (#{param1},#{param2},#{param3},#{param4},#{param5},#{param6})")
+    void addWeChat(String wxId, String nickName, String assignPhone, String avatar, String city, Integer operanId);
 }

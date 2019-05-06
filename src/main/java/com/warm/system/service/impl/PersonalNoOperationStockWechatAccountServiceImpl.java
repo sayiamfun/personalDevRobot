@@ -79,4 +79,9 @@ public class PersonalNoOperationStockWechatAccountServiceImpl extends ServiceImp
     public PersonalNoOperationStockWechatAccount getByLogicId(Integer logicId) {
         return operationStockWechatAccountMapper.getByLogicId(logicId);
     }
+
+    @Override
+    public void addWeChat(PersonalNoOperationStockWechatAccount temp) {
+        operationStockWechatAccountMapper.addWeChat(temp.getWxId(),temp.getNickName(),temp.getAssignPhone(),temp.getAvatar(),temp.getCity(),temp.getOperationProjectInstanceId());
+    }
 }

@@ -30,7 +30,7 @@ public interface PersonalNoPhoneTaskGroupMapper extends BaseMapper<PersonalNoPho
     PersonalNoPhoneTaskGroup getByPersonalWxIdAndTheme(String wxId, String s, String status, String noeDate, String noeDate1);
 
     @Select("SELECT id,tname,total_step,next_step,status,current_robot_id,group_pool_id,wx_group_id,create_time,pickup_time,finish_time,task_send_id,lable_send_id,task_order FROM personal_zc_01.personal_no_phone_task_group WHERE current_robot_id = #{param1} AND status = #{param2} AND task_order = #{param3} and create_time < #{param4} LIMIT 0,10")
-    List<PersonalNoPhoneTaskGroup> listByRobotIdAndStatusAndTaskOrderAndCreateTime(String currRobotWxid, String status, Integer order, Date date);
+    List<PersonalNoPhoneTaskGroup> listByRobotIdAndStatusAndTaskOrderAndCreateTime(String currRobotWxid, String status, Integer order, String date);
 
     @Select("SELECT id,tname,total_step,next_step,status,current_robot_id,group_pool_id,wx_group_id,create_time,pickup_time,finish_time,task_send_id,lable_send_id,task_order FROM personal_zc_01.personal_no_phone_task_group WHERE current_robot_id = #{param1} AND status = #{param2} AND task_order = #{param3} and create_time BETWEEN #{param4} and #{param5}  ORDER BY id DESC LIMIT #{param6},#{param7}")
     List<PersonalNoPhoneTaskGroup> pageList(String currRobotWxid, String status, Integer order, String toString, String toString1, int offset, int limit);

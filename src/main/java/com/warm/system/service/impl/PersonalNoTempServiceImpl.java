@@ -5,6 +5,7 @@ import com.warm.system.mapper.PersonalNoTempMapper;
 import com.warm.system.service.db1.PersonalNoTempService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.warm.system.service.db1.PersonalNoValueTableService;
+import com.warm.utils.WebConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,7 @@ public class PersonalNoTempServiceImpl extends ServiceImpl<PersonalNoTempMapper,
 
     @Override
     public List<PersonalNoTemp> listByPersonalWxIdAndTimeAndFlag(String wxId, int i) {
-        return personalNoTempMapper.listByPersonalWxIdAndTimeAndFlag(wxId,new Date(new Date().getTime()-Integer.parseInt(valueTableService.getById(5).getValue())*1000).toString(),i);
+        return personalNoTempMapper.listByPersonalWxIdAndTimeAndFlag(wxId, WebConst.getNowDate(new Date(new Date().getTime()-Integer.parseInt(valueTableService.getById(5).getValue())*1000)),i);
     }
 
     @Override

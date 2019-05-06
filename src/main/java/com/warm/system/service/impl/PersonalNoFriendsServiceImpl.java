@@ -90,10 +90,12 @@ public class PersonalNoFriendsServiceImpl extends ServiceImpl<PersonalNoFriendsM
     public boolean insert(PersonalNoFriends friends) {
         if(VerifyUtils.isEmpty(friends.getId())){
             log.info("该个人号好友不存在，插入表");
-            return baseMapper.insert(friends)>0;
+            friendsMapper.insertInfo(friends.getPersonalNoWxId(),friends.getUserId(),friends.getUserWxId(),friends.getBeFriendTime());
+            return true;
         }
         log.info("该个人号好友存在，更新表");
-        return baseMapper.updateById(friends)>0;
+        friendsMapper.updateInfoById(friends.getPersonalNoWxId(),friends.getUserId(),friends.getUserWxId(),friends.getBeFriendTime(),friends.getId());
+        return true;
     }
 
     /**
@@ -243,6 +245,23 @@ public class PersonalNoFriendsServiceImpl extends ServiceImpl<PersonalNoFriendsM
         deletePeopleAndFriends(personalWxId, user);
         return true;
     }
+
+    @Override
+    public void deleteByIds(List<Integer> personalNoFriendsIdList) {
+        if(!VerifyUtils.collectionIsEmpty(personalNoFriendsIdList)) {
+            StringBuffer temp = new StringBuffer();
+            temp.append("(");
+            for (int i = 0; i < personalNoFriendsIdList.size(); i++) {
+                if (i > 0) {
+                    log.info("去重");
+                    temp.append(personalNoFriendsIdList.get(i));
+                }
+            }
+            temp.append(")");
+            friendsMapper.deleteByIds(temp);
+        }
+    }
+
     /**
      * 添加删除好友任务
      * @param personalWxId

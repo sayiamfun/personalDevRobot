@@ -34,7 +34,7 @@ public class MpGenerator {
         gc.setEnableCache(false);// XML 二级缓存
         gc.setBaseResultMap(true);// XML ResultMap
         gc.setBaseColumnList(false);// XML columList
-        gc.setAuthor("dgd");//开发人员
+        gc.setAuthor("liwenjie");//开发人员
 
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
         // gc.setMapperName("%sDao");
@@ -59,7 +59,7 @@ public class MpGenerator {
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("jiazhangjia217");
-        dsc.setUrl("jdbc:mysql://localhost:3306/personal_qb?characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/personal_zc_01?characterEncoding=utf8");
         mpg.setDataSource(dsc);
 
         // 策略配置
@@ -67,17 +67,18 @@ public class MpGenerator {
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
         //strategy.setTablePrefix(new String[] { "tlog_", "tsys_" });// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] { "personal_no","personal_no_access_tocken","personal_no_blacklist","personal_no_category",
-                "personal_no_channel","personal_no_data","personal_no_friends","personal_no_friends_circle",
-                "personal_no_friends_circle_personal","personal_no_friends_circle_photo","personal_no_keyword",
-                "personal_no_keyword_content","personal_no_lable","personal_no_lable_message_send","personal_no_lable_category",
-                "personal_no_lable_message_send_content","personal_no_lable_message_send_lable_no","personal_no_passage_click_record",
-                "personal_no_people","personal_no_phone_request_task_time","personal_no_phone_task","personal_no_phone_task_group",
-                "personal_no_prism_record","personal_no_request_exception","personal_no_road","personal_no_robot_log_android",
-                "personal_no_small_face","personal_no_superuesr","personal_no_task","personal_no_task_begin_remind",
-                "personal_no_task_channel","personal_no_task_data","personal_no_task_lable","personal_no_task_message_send",
-                "personal_no_task_message_send_content","personal_no_task_personal","personal_no_task_reply_content",
-                "personal_no_task_url","personal_no_temp","personal_no_user","personal_no_value_table","personal_no_wx_user"}); // 需要生成的表
+//        strategy.setInclude(new String[] { "personal_no","personal_no_access_tocken","personal_no_blacklist","personal_no_category",
+//                "personal_no_channel","personal_no_data","personal_no_friends","personal_no_friends_circle",
+//                "personal_no_friends_circle_personal","personal_no_friends_circle_photo","personal_no_keyword",
+//                "personal_no_keyword_content","personal_no_lable","personal_no_lable_message_send","personal_no_lable_category",
+//                "personal_no_lable_message_send_content","personal_no_lable_message_send_lable_no","personal_no_passage_click_record",
+//                "personal_no_people","personal_no_phone_request_task_time","personal_no_phone_task","personal_no_phone_task_group",
+//                "personal_no_prism_record","personal_no_request_exception","personal_no_road","personal_no_robot_log_android",
+//                "personal_no_small_face","personal_no_superuesr","personal_no_task","personal_no_task_begin_remind",
+//                "personal_no_task_channel","personal_no_task_data","personal_no_task_lable","personal_no_task_message_send",
+//                "personal_no_task_message_send_content","personal_no_task_personal","personal_no_task_reply_content",
+//                "personal_no_task_url","personal_no_temp","personal_no_user","personal_no_value_table","personal_no_wx_user"}); // 需要生成的表
+        strategy.setInclude(new String[]{"personal_no_send_message"});
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
         // strategy.setSuperEntityClass("com.baomidou.authentication.TestEntity");

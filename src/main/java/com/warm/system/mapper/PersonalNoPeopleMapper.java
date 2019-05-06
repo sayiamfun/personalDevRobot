@@ -2,6 +2,7 @@ package com.warm.system.mapper;
 
 import com.warm.system.entity.PersonalNoPeople;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -56,4 +57,8 @@ public interface PersonalNoPeopleMapper extends BaseMapper<PersonalNoPeople> {
     List<PersonalNoPeople> ListByTaskIdAndPersonalWxId(Integer taskId, String personalNoWxId);
     @Update("update personal_zc_01.personal_no_people set flag = #{param2} where id = #{param1}")
     void updateFlagById(Integer id, Integer flag);
+    @Delete("DELETE FROM personal_zc_01.personal_no_people WHERE id in #{param1}")
+    void deleteByIds(StringBuffer temp);
+        @Select("SELECT id,personal_friend_wx_id,personal_task_id,personal_no_wx_id,channel_id,flag,be_friend_time,remarks,personal_friend_nick_name,deleted FROM personal_zc_01.personal_no_people WHERE personal_no_wx_id = #{param1} and personal_friend_wx_id = #{param2} and deleted = 0 and (flag = #{param3} or flag = 3)")
+    List<PersonalNoPeople> listByPersonalIdAndUserId(String s, String fromUsername, int i);
 }

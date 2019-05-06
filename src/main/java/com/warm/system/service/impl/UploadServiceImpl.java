@@ -37,7 +37,6 @@ public class UploadServiceImpl implements UploadService {
             StorageClient storageClient=new StorageClient(trackerServer,null);
             String filename= file.getOriginalFilename();
             String extName = StringUtils.substringAfterLast(filename, ".");
-
             String[] upload_file = storageClient.upload_file(file.getBytes(), extName, null);
             imgUrl=fileUrl ;
             for (int i = 0; i < upload_file.length; i++) {

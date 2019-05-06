@@ -248,4 +248,24 @@ public class PersonalNoPeopleServiceImpl extends ServiceImpl<PersonalNoPeopleMap
         taskPeopleMapper.updateFlagById(id, flag);
         return true;
     }
+
+    @Override
+    public void deleteByIds(List<Integer> peopleIdList) {
+        if(!VerifyUtils.collectionIsEmpty(peopleIdList)) {
+            StringBuffer temp = new StringBuffer();
+            temp.append("(");
+            for (int i = 0; i < peopleIdList.size(); i++) {
+                if (i > 0) {
+                    temp.append(peopleIdList.get(i));
+                }
+            }
+            temp.append(")");
+            taskPeopleMapper.deleteByIds(temp);
+        }
+    }
+
+    @Override
+    public List<PersonalNoPeople> listByPersonalIdAndUserId(String s, String fromUsername, int i) {
+        return taskPeopleMapper.listByPersonalIdAndUserId(s,fromUsername,i);
+    }
 }

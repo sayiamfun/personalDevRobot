@@ -49,7 +49,7 @@ public class PersonalNoPhoneTaskGroupServiceImpl extends ServiceImpl<PersonalNoP
         long endTime = time + 180000L;
         entityWrapper.between("create_time", new Date(startTime), new Date(endTime));
         log.info("根据机器人微信id和状态，任务级别查找任务组（执行中的任务组）结束");
-        List<PersonalNoPhoneTaskGroup> list = taskGroupMapper.pageList(currRobotWxid, "未下发", order, new Date(startTime).toString(), new Date(endTime).toString(), page.getOffset(), page.getLimit());
+        List<PersonalNoPhoneTaskGroup> list = taskGroupMapper.pageList(currRobotWxid, "未下发", order, WebConst.getNowDate(new Date(startTime)), WebConst.getNowDate(new Date(endTime)), page.getOffset(), page.getLimit());
         return list;
     }
     /**
@@ -61,7 +61,7 @@ public class PersonalNoPhoneTaskGroupServiceImpl extends ServiceImpl<PersonalNoP
     @Override
     public List<PersonalNoPhoneTaskGroup> listBycurrent_robot_idAndStatusWating(String currRobotWxid, Integer order) {
         log.info("根据机器人微信id和状态，任务级别查找任务组（未下发的任务组）");
-        return taskGroupMapper.listByRobotIdAndStatusAndTaskOrderAndCreateTime(currRobotWxid,"未下发",order,WebConst.getDateHourByString(WebConst.getNowDate(new Date())));
+        return taskGroupMapper.listByRobotIdAndStatusAndTaskOrderAndCreateTime(currRobotWxid,"未下发",order,WebConst.getNowDate(new Date()));
     }
 
     /**
