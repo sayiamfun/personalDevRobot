@@ -1,15 +1,14 @@
 package com.warm.system.service.impl;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoTemp;
 import com.warm.system.mapper.PersonalNoTempMapper;
 import com.warm.system.service.db1.PersonalNoTempService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.warm.system.service.db1.PersonalNoValueTableService;
-import com.warm.utils.WebConst;
+import com.warm.utils.VerifyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,39 +16,30 @@ import java.util.List;
  * 存储用户的交互数据 服务实现类
  * </p>
  *
- * @author dgd123
- * @since 2019-03-29
+ * @author liwenjie123
+ * @since 2019-05-22
  */
 @Service
 public class PersonalNoTempServiceImpl extends ServiceImpl<PersonalNoTempMapper, PersonalNoTemp> implements PersonalNoTempService {
+
     @Autowired
-    private PersonalNoTempMapper personalNoTempMapper;
-    @Autowired
-    private PersonalNoValueTableService valueTableService;
-    /**
-     * 根据个人号微信id和用户微信id查找
-     * @param s
-     * @param fromUsername
-     * @return
-     */
+    private PersonalNoTempMapper tempMapper;
+
     @Override
-    public PersonalNoTemp getByPersonalIdAndUserWxId(String s, String fromUsername) {
-        return personalNoTempMapper.getByPersonalIdAndUserWxId(s,fromUsername);
+    public List<PersonalNoTemp> listBysql(Sql sql) {
+        return tempMapper.listBySql(sql);
     }
 
     @Override
-    public void insertPersonalNoTemp(PersonalNoTemp personalNoTemp) {
-        personalNoTempMapper.insert(personalNoTemp);
+    public Integer add(PersonalNoTemp personalNoTemp) {
+        if(VerifyUtils.isEmpty(personalNoTemp.getId())){
+            return tempMapper.add(personalNoTemp);
+        }
+        return tempMapper.updateOne(personalNoTemp);
     }
 
     @Override
-    public List<PersonalNoTemp> listByPersonalWxIdAndTimeAndFlag(String wxId, int i) {
-        return personalNoTempMapper.listByPersonalWxIdAndTimeAndFlag(wxId, WebConst.getNowDate(new Date(new Date().getTime()-Integer.parseInt(valueTableService.getById(5).getValue())*1000)),i);
+    public PersonalNoTemp getBySql(Sql sql) {
+        return tempMapper.getBySql(sql);
     }
-
-    @Override
-    public void updateFlagById(PersonalNoTemp personalNoTemp) {
-        personalNoTempMapper.updateFlagById(personalNoTemp.getFlag(),personalNoTemp.getId());
-    }
-
 }

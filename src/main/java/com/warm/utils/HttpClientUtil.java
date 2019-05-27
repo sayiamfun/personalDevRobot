@@ -141,7 +141,7 @@ public class HttpClientUtil {
             G.i(-3, "OAuthController.callback，无法访问腾讯服务器。repeatIndex=" + repeatIndex + " retStr2=", retStr2);
             retStr2 = sendGet(url2);
         }
-        WxResponseInfo2 wxResponseInfo2 = G.ms_om.readValue(retStr2, WxResponseInfo2.class);
+        WxResponseInfo2 wxResponseInfo2 = JsonObjectUtils.jsonToPojo(retStr2, WxResponseInfo2.class);
         if (wxResponseInfo2.errcode != null) {
             G.i(-3, "OAuthController.callback， 微信服务器返回错误 retStr2=", retStr2);
             throw new RuntimeException(retStr2);

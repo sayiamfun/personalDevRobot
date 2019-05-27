@@ -1,5 +1,6 @@
 package com.warm.system.service.db1;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoSmallFace;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -15,9 +16,8 @@ import java.util.List;
  */
 public interface PersonalNoSmallFaceService extends IService<PersonalNoSmallFace> {
 
-    int getCount();
 
-    PersonalNoSmallFace getById(int i);
+    List<Integer> listIntegerBySql(Sql sql);
 
-    List<Integer> listId();
+    PersonalNoSmallFace getBySql(Sql sql);
 }

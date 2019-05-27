@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -15,9 +17,10 @@ import java.io.Serializable;
  * 存储用户的交互数据
  * </p>
  *
- * @author dgd123
- * @since 2019-03-29
+ * @author liwenjie123
+ * @since 2019-05-22
  */
+@Data
 @TableName("personal_no_temp")
 public class PersonalNoTemp extends Model<PersonalNoTemp> {
 
@@ -43,48 +46,33 @@ public class PersonalNoTemp extends Model<PersonalNoTemp> {
     /**
      * 回复状态
      */
-    private Integer flag;
+    private Integer greetings;
+    /**
+     * 定时消息：0：未发，1：已发
+     */
+    private Integer timing;
+    /**
+     * 定时时间
+     */
+    @TableField("timing_time")
+    private Date timingTime;
+    /**
+     * 隔时消息：0：未发，1：已发
+     */
+    private Integer ever;
+    /**
+     * 隔时时间
+     */
+    @TableField("ever_time")
+    private String everTime;
+    /**
+     * 个人号发送消息表id
+     */
+    @TableField("personal_no_send_message_id")
+    private Integer personalNoSendMessageId;
 
-
-    public Integer getId() {
-        return Id;
-    }
-
-    public void setId(Integer Id) {
-        this.Id = Id;
-    }
-
-    public String getPersonalNoWxId() {
-        return personalNoWxId;
-    }
-
-    public void setPersonalNoWxId(String personalNoWxId) {
-        this.personalNoWxId = personalNoWxId;
-    }
-
-    public String getUserWxId() {
-        return userWxId;
-    }
-
-    public void setUserWxId(String userWxId) {
-        this.userWxId = userWxId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Integer getFlag() {
-        return flag;
-    }
-
-    public void setFlag(Integer flag) {
-        this.flag = flag;
-    }
+    @TableField(exist = false)
+    private String db;
 
     @Override
     protected Serializable pkVal() {
@@ -98,7 +86,12 @@ public class PersonalNoTemp extends Model<PersonalNoTemp> {
         ", personalNoWxId=" + personalNoWxId +
         ", userWxId=" + userWxId +
         ", createTime=" + createTime +
-        ", flag=" + flag +
+        ", greetings=" + greetings +
+        ", timing=" + timing +
+        ", timingTime=" + timingTime +
+        ", ever=" + ever +
+        ", everTime=" + everTime +
+        ", personalNoSendMessageId=" + personalNoSendMessageId +
         "}";
     }
 }

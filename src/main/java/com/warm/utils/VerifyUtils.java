@@ -23,7 +23,7 @@ public class VerifyUtils {
     }
     //判断单个对象是否为空
     public static boolean isEmpty(Object object) {
-        if(null == object || StringUtils.isEmpty(object)){
+        if(null == object || "".equals(object)){
             return true;
         }
         return false;

@@ -20,28 +20,6 @@ import java.util.Map;
  */
 public interface PersonalNoTaskService extends IService<PersonalNoTask> {
 
-    int getOnGoingTaskNum();
 
-    PersonalNoTask getTaskById(Integer taskId);
-
-    void pageQuery(Page<PersonalNoTask> page, QueryPersonalTask queryPersonalTask);
-
-    boolean addPersonalTask(PersonalNoTask task , Integer superID);
-
-    PersonalNoTask getTaskInfoById(Integer id);
-
-    List<Integer> listByPersonalWxId(String wxId);
-
-    List<PersonalNoTask> listByRoadId(Integer id);
-
-    Map<String, Object> getPersonalDataByTaskId(Integer taskId);
-
-    List<PersonalNoTask> listByStartTimeAndEndTime(Date date, Date datTaskDate);
-
-    PersonalNoTask getTaskByIdLess(Integer taskId);
-
-    @Transactional
-    boolean deleteById(Integer taskId);
-
-    boolean stopTaskById(Integer taskId);
+    PersonalNoTask getTaskMessageById(Integer personalTaskId);
 }

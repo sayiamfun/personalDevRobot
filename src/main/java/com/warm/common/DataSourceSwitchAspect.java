@@ -1,5 +1,6 @@
 package com.warm.common;
 
+import com.warm.utils.VerifyUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -57,7 +58,7 @@ public class DataSourceSwitchAspect {
     private void setDataSource(JoinPoint joinPoint, DBTypeEnum dbTypeEnum) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         DataSourceSwitch dataSourceSwitch = methodSignature.getMethod().getAnnotation(DataSourceSwitch.class);
-        if (Objects.isNull(dataSourceSwitch) || Objects.isNull(dataSourceSwitch.value())) {
+        if (VerifyUtils.isEmpty(dataSourceSwitch) || VerifyUtils.isEmpty(dataSourceSwitch.value())) {
             DbContextHolder.setDbType(dbTypeEnum);
         }else{
             log.info("根据注解来切换数据源,注解值为:"+dataSourceSwitch.value());

@@ -6,8 +6,10 @@ import com.warm.system.entity.PersonalNoRequestException;
 import com.warm.system.mapper.PersonalNoRequestExceptionMapper;
 import com.warm.system.service.db1.PersonalNoRequestExceptionService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.warm.utils.VerifyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,9 +23,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class PersonalNoRequestExceptionServiceImpl extends ServiceImpl<PersonalNoRequestExceptionMapper, PersonalNoRequestException> implements PersonalNoRequestExceptionService {
 
-    @DataSourceSwitch(DBTypeEnum.db1)
+    @Autowired
+    private PersonalNoRequestExceptionMapper requestExceptionMapper;
+
     @Override
-    public void insertRequestException(PersonalNoRequestException requestException) {
-        baseMapper.insertRequestException(requestException.getMethod(),requestException.getUrl(),requestException.getRequestBody(),requestException.getStatusCode(),requestException.getCreateTime());
+    public Integer add(PersonalNoRequestException exception) {
+        if(VerifyUtils.isEmpty(exception.getId())) {
+           return requestExceptionMapper.add(exception);
+        }
+        return requestExceptionMapper.updateOne(exception);
     }
 }

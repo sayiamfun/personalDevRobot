@@ -13,5 +13,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface PersonalNoRequestExceptionService extends IService<PersonalNoRequestException> {
 
-    void insertRequestException(PersonalNoRequestException requestException);
+    Integer add(PersonalNoRequestException exception);
 }

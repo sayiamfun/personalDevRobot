@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface PersonalNoRobotLogAndroidService extends IService<PersonalNoRobotLogAndroid> {
 
+    Integer add(PersonalNoRobotLogAndroid tempRL);
 }

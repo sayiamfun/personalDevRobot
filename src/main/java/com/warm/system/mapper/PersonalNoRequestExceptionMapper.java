@@ -3,6 +3,7 @@ package com.warm.system.mapper;
 import com.warm.system.entity.PersonalNoRequestException;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 
@@ -15,6 +16,9 @@ import java.util.Date;
  * @since 2019-03-29
  */
 public interface PersonalNoRequestExceptionMapper extends BaseMapper<PersonalNoRequestException> {
-    @Insert("INSERT INTO personal_zc_01.personal_no_request_exception   ( `method`,url,request_body,status_code,create_time ) VALUES ( #{param1},#{param2},#{param3},#{param4},#{param5} )")
-    void insertRequestException(String method, String url, String requestBody, Integer statusCode, Date createTime);
+
+    Integer add(@Param("entity") PersonalNoRequestException entity);
+
+    Integer updateOne(@Param("entity") PersonalNoRequestException entity);
+
 }

@@ -1,5 +1,6 @@
 package com.warm.system.service.impl;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoBlacklist;
 import com.warm.system.mapper.PersonalNoBlacklistMapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -8,6 +9,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -22,14 +25,14 @@ public class PersonalNoBlacklistServiceImpl extends ServiceImpl<PersonalNoBlackl
     private static Log log = LogFactory.getLog(PersonalNoBlacklistServiceImpl.class);
     @Autowired
     private PersonalNoBlacklistMapper blacklistMapper;
-    /**
-     * 根据微信id查询黑名单成员
-     * @param wxId
-     * @return
-     */
+
     @Override
-    public PersonalNoBlacklist getByWxId(String wxId) {
-        log.info("根据微信id查询黑名单信息");
-        return blacklistMapper.getByWxId(wxId);
+    public List<String> listStringBySql(Sql sql) {
+        return blacklistMapper.listStringBySql(sql);
+    }
+
+    @Override
+    public PersonalNoBlacklist getBySql(Sql sql) {
+        return blacklistMapper.getBySql(sql);
     }
 }

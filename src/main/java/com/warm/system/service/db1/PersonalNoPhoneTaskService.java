@@ -1,7 +1,9 @@
 package com.warm.system.service.db1;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoPhoneTask;
 import com.baomidou.mybatisplus.service.IService;
+import com.warm.system.entity.PersonalNoPhoneTaskFinish;
 
 import java.util.List;
 
@@ -14,11 +16,12 @@ import java.util.List;
  * @since 2019-03-29
  */
 public interface PersonalNoPhoneTaskService extends IService<PersonalNoPhoneTask> {
-    PersonalNoPhoneTask getOneBytask_group_idAndstep(Integer id, Integer nextStep);
 
-    List<PersonalNoPhoneTask> listBytask_group_id(Integer id);
+    List<PersonalNoPhoneTaskFinish> listFinshBySql(Sql sql);
 
-    void deleteByTaskGrouPId(Integer id);
+    PersonalNoPhoneTask getBySql(Sql sql);
 
-    boolean updateStatusById(PersonalNoPhoneTask byId);
+    Integer add(PersonalNoPhoneTask byId);
+
+    Integer deleteBySql(Sql sql);
 }

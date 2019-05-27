@@ -1,7 +1,6 @@
 package com.warm.system.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.warm.system.entity.PersonalNo;
 import com.warm.system.entity.PersonalNoPrismRecord;
 import com.warm.system.mapper.PersonalNoPrismRecordMapper;
 import com.warm.system.service.db1.PersonalNoPrismRecordService;

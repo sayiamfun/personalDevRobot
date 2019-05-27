@@ -1,5 +1,6 @@
 package com.warm.system.service.db1;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoKeywordContent;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -15,7 +16,5 @@ import java.util.List;
  */
 public interface PersonalNoKeywordContentService extends IService<PersonalNoKeywordContent> {
 
-    void deleteByKeyWordId(Integer id);
-
-    List<PersonalNoKeywordContent> listByKeywordId(Integer id);
+    List<PersonalNoKeywordContent> listBySql(Sql sql);
 }

@@ -1,5 +1,6 @@
 package com.warm.system.service.impl;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoKeywordContent;
 import com.warm.system.mapper.PersonalNoKeywordContentMapper;
 import com.warm.system.service.db1.PersonalNoKeywordContentService;
@@ -21,22 +22,9 @@ import java.util.List;
 public class PersonalNoKeywordContentServiceImpl extends ServiceImpl<PersonalNoKeywordContentMapper, PersonalNoKeywordContent> implements PersonalNoKeywordContentService {
     @Autowired
     private PersonalNoKeywordContentMapper keywordContentMapper;
-    /**
-     * 根据关键词id获取关键词内容
-     * @param id
-     * @return
-     */
-    @Override
-    public List<PersonalNoKeywordContent> listByKeywordId(Integer id) {
-        return keywordContentMapper.listByKeywordId(id);
-    }
 
-    /**
-     * 根据关键词id删除内容
-     * @param id
-     */
     @Override
-    public void deleteByKeyWordId(Integer id) {
-        keywordContentMapper.deleteByKeyWordId(id);
+    public List<PersonalNoKeywordContent> listBySql(Sql sql) {
+        return keywordContentMapper.listBySql(sql);
     }
 }

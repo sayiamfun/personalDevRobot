@@ -28,6 +28,7 @@ public class WebConst {
     public static final String LOGIN_ADDRESS = "http://192.168.3.5/#/login";
     //注册邀请码
     public static final String CODE = "jiazhangjia";
+    public static final String WECHATSTATUS = "封禁";
     //session存放超级用户的key
     public static final String SUPERUSER = "superUser";
     public static final String TASKINFOKEY = "PersonalNoUserInfoSuff";
@@ -48,7 +49,6 @@ public class WebConst {
         intoGroup = 0; // 邀请入群
         smallProgramNum = 0; //小程序
     }
-
 
     public static String getTaskContentShow(List<PersonalNoTaskMessageSendContent> personalNoTaskMessageSendContents) {
 
@@ -267,26 +267,6 @@ public class WebConst {
     }
 
     /**
-     * 将错误信息插入到数据库
-     *
-     * @param requestExceptionService
-     * @param request
-     * @param response
-     * @param object
-     * @return
-     */
-    public static boolean insertRequseException(PersonalNoRequestExceptionService requestExceptionService, HttpServletRequest request, HttpServletResponse response, Object object) {
-        PersonalNoRequestException requestException = new PersonalNoRequestException();
-        requestException.setCreateTime(new Date());
-        requestException.setMethod(request.getMethod());
-//        requestException.setRequestBody(object.toString());
-        requestException.setUrl(request.getRequestURL().toString());
-        requestException.setStatusCode(response.getStatus());
-        requestExceptionService.insertRequestException(requestException);
-        return true;
-    }
-
-    /**
      * 时间格式转换带时分秒
      * Date  to   String
      * @return
@@ -355,4 +335,26 @@ public class WebConst {
         return b1.divide(b2,len,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
+    /**
+     * 根据传入时间获得明天凌晨0点时间
+     * @return
+     */
+    public static String getTodayZeroTime(Date date) {
+        return getNowDateNotHour(date)+" 00:00:00";
+    }
+
+    /**
+     * 根据传入时间获得后天凌晨0点时间
+     * @return
+     */
+    public static String getTomorrowZeroTime(Date date) {
+        return getNowDateNotHour(new Date(date.getTime()+24*60*60*1000))+" 00:00:00";
+    }
+    /**
+     * 根据传入时间获得明天早上8点时间
+     * @return
+     */
+    public static String getTomorrowEightTime(Date date) {
+        return getNowDateNotHour(new Date(date.getTime()+24*60*60*1000))+" 08:00:00";
+    }
 }

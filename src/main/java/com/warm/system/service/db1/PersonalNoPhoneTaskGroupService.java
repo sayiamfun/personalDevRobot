@@ -1,7 +1,9 @@
 package com.warm.system.service.db1;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoPhoneTaskGroup;
 import com.baomidou.mybatisplus.service.IService;
+import com.warm.system.entity.PersonalNoPhoneTaskGroupFinsh;
 
 import java.util.Date;
 import java.util.List;
@@ -16,15 +18,13 @@ import java.util.List;
  */
 public interface PersonalNoPhoneTaskGroupService extends IService<PersonalNoPhoneTaskGroup> {
 
-    List<PersonalNoPhoneTaskGroup> listBycurrent_robot_idAndStatusGoingAndTime(String currRobotWxid, Date date, Integer order);
+    PersonalNoPhoneTaskGroup getBySql(Sql sql);
 
-    List<PersonalNoPhoneTaskGroup> listBycurrent_robot_idAndStatusWating(String wxid_o72bs8evoigc22, Integer order);
+    List<PersonalNoPhoneTaskGroupFinsh> listFinshBySql(Sql sql);
 
-    List<PersonalNoPhoneTaskGroup> listByTaskMessageId(Integer id);
+    List<PersonalNoPhoneTaskGroup> listBySql(Sql sql);
 
-    PersonalNoPhoneTaskGroup listBycurrent_robot_idAndStatusWatingDesc(String wxId, int i);
+    Integer add(PersonalNoPhoneTaskGroup taskGroup);
 
-    PersonalNoPhoneTaskGroup getByPersonalWxIdAndTheme(String wxId, String s, String status);
-
-    boolean updateInfoById(PersonalNoPhoneTaskGroup taskGroup1);
+    Integer deleteBySql(Sql sql);
 }

@@ -3,6 +3,8 @@ package com.warm.system.service.db1;
 import com.warm.system.entity.PersonalNoSendMessage;
 import com.baomidou.mybatisplus.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,9 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface PersonalNoSendMessageService extends IService<PersonalNoSendMessage> {
 
+    PersonalNoSendMessage getMessageIdByWxIdAndTiming(String s,int i);
+
+    List<PersonalNoSendMessage> listByPersonalWxId(String s);
+
+    PersonalNoSendMessage getById(Integer personalNoSendMessageId);
 }

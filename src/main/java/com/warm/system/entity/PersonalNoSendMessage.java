@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -17,6 +19,7 @@ import java.io.Serializable;
  * @author liwenjie123
  * @since 2019-05-06
  */
+@Data
 @TableName("personal_no_send_message")
 public class PersonalNoSendMessage extends Model<PersonalNoSendMessage> {
 
@@ -48,6 +51,7 @@ public class PersonalNoSendMessage extends Model<PersonalNoSendMessage> {
     private String timingTime;
     /**
      * 是否根据用户回复情况发送
+     * 0:都发送：1：不回复发送，2：回复发送
      */
     @TableField("initiative_flag")
     private Integer initiativeFlag;
@@ -58,61 +62,6 @@ public class PersonalNoSendMessage extends Model<PersonalNoSendMessage> {
     private Integer messageId;
 
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getPersonalWxId() {
-        return personalWxId;
-    }
-
-    public void setPersonalWxId(String personalWxId) {
-        this.personalWxId = personalWxId;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public Integer getTiming() {
-        return timing;
-    }
-
-    public void setTiming(Integer timing) {
-        this.timing = timing;
-    }
-
-    public String getTimingTime() {
-        return timingTime;
-    }
-
-    public void setTimingTime(String timingTime) {
-        this.timingTime = timingTime;
-    }
-
-    public Integer getInitiativeFlag() {
-        return initiativeFlag;
-    }
-
-    public void setInitiativeFlag(Integer initiativeFlag) {
-        this.initiativeFlag = initiativeFlag;
-    }
-
-    public Integer getMessageId() {
-        return messageId;
-    }
-
-    public void setMessageId(Integer messageId) {
-        this.messageId = messageId;
-    }
 
     @Override
     protected Serializable pkVal() {

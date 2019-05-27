@@ -1,5 +1,6 @@
 package com.warm.system.service.db2;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoOperationStockWechatAccount;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -16,19 +17,10 @@ import java.util.List;
  */
 public interface PersonalNoOperationStockWechatAccountService extends IService<PersonalNoOperationStockWechatAccount> {
 
-    PersonalNoOperationStockWechatAccount getByIdAndInstanceId(Integer currRobotLogicId, int ms_operation_project_instance_id);
+    PersonalNoOperationStockWechatAccount getBySql(Sql sql);
 
-    PersonalNoOperationStockWechatAccount getByWxIdAndInstanceId(String currRobotWxid, int ms_operation_project_instance_id);
+    Integer add(PersonalNoOperationStockWechatAccount personalNoOperationStockWechatAccount);
 
-    List<PersonalNoOperationStockWechatAccount> listByNickNameAndInstanceId(String nickname, int ms_operation_project_instance_id);
+    List<PersonalNoOperationStockWechatAccount> listbySql(Sql sql);
 
-    List<PersonalNoOperationStockWechatAccount> listByInstanceId(int ms_operation_project_instance_id);
-
-    List<PersonalNoOperationStockWechatAccount> listByRequestTaskTimeAndInstanceId(Date date, int ms_operation_project_instance_id);
-
-    boolean updateByLogicId(PersonalNoOperationStockWechatAccount tempOSWA);
-
-    PersonalNoOperationStockWechatAccount getByLogicId(Integer logicId);
-
-    void addWeChat(PersonalNoOperationStockWechatAccount temp);
 }

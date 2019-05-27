@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -18,6 +20,7 @@ import java.io.Serializable;
  * @author dgd123
  * @since 2019-03-29
  */
+@Data
 @TableName("personal_no_friends")
 public class PersonalNoFriends extends Model<PersonalNoFriends> {
 
@@ -59,66 +62,8 @@ public class PersonalNoFriends extends Model<PersonalNoFriends> {
      */
     private Integer deleted;
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getPersonalNoId() {
-        return personalNoId;
-    }
-
-    public void setPersonalNoId(Integer personalNoId) {
-        this.personalNoId = personalNoId;
-    }
-
-    public String getPersonalNoWxId() {
-        return personalNoWxId;
-    }
-
-    public void setPersonalNoWxId(String personalNoWxId) {
-        this.personalNoWxId = personalNoWxId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getUserWxId() {
-        return userWxId;
-    }
-
-    public void setUserWxId(String userWxId) {
-        this.userWxId = userWxId;
-    }
-
-    public Date getBeFriendTime() {
-        return beFriendTime;
-    }
-
-    public void setBeFriendTime(Date beFriendTime) {
-        this.beFriendTime = beFriendTime;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public Integer getDeleted() {
-        return deleted;
-    }
+    @TableField(exist = false)
+    private String db;
 
     public void setDeleted(Integer deleted) {
         this.deleted = deleted;

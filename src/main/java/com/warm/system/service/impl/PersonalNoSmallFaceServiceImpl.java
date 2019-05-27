@@ -1,5 +1,6 @@
 package com.warm.system.service.impl;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoSmallFace;
 import com.warm.system.mapper.PersonalNoSmallFaceMapper;
 import com.warm.system.service.db1.PersonalNoSmallFaceService;
@@ -21,18 +22,14 @@ import java.util.List;
 public class PersonalNoSmallFaceServiceImpl extends ServiceImpl<PersonalNoSmallFaceMapper, PersonalNoSmallFace> implements PersonalNoSmallFaceService {
     @Autowired
     private PersonalNoSmallFaceMapper smallFaceMapper;
+
     @Override
-    public int getCount() {
-        return smallFaceMapper.getCount();
+    public List<Integer> listIntegerBySql(Sql sql) {
+        return smallFaceMapper.listIntegerBySql(sql);
     }
 
     @Override
-    public PersonalNoSmallFace getById(int i) {
-        return smallFaceMapper.getById(i);
-    }
-
-    @Override
-    public List<Integer> listId() {
-        return smallFaceMapper.listId();
+    public PersonalNoSmallFace getBySql(Sql sql) {
+        return smallFaceMapper.getBySql(sql);
     }
 }

@@ -1,5 +1,6 @@
 package com.warm.system.service.db1;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoTask;
 import com.warm.system.entity.PersonalNoTaskLable;
 import com.baomidou.mybatisplus.service.IService;
@@ -17,13 +18,5 @@ import java.util.Set;
  */
 public interface PersonalNoTaskLableService extends IService<PersonalNoTaskLable> {
 
-    List<PersonalNoTaskLable> listByLableId(Integer lableId);
-
-    List<PersonalNoTaskLable> listByTaskId(Integer personalNoTaskId);
-
-    boolean deleteByTaskId(Integer taskId);
-
-    Set<Integer> listByLableNameList(List<String> lableNameList);
-
-    boolean batchSave(PersonalNoTask noTask);
+    List<PersonalNoTaskLable> listBysql(Sql sql);
 }

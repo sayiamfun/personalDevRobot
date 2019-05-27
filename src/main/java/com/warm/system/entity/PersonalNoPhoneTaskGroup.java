@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -18,6 +20,7 @@ import java.io.Serializable;
  * @author dgd123
  * @since 2019-03-29
  */
+@Data
 @TableName("personal_no_phone_task_group")
 public class PersonalNoPhoneTaskGroup extends Model<PersonalNoPhoneTaskGroup> {
 
@@ -86,118 +89,11 @@ public class PersonalNoPhoneTaskGroup extends Model<PersonalNoPhoneTaskGroup> {
     @TableField("task_order")
     private Integer taskOrder;
 
+    @TableField("message_send_id")
+    private String messageSendId;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTname() {
-        return tname;
-    }
-
-    public void setTname(String tname) {
-        this.tname = tname;
-    }
-
-    public Integer getTotalStep() {
-        return totalStep;
-    }
-
-    public void setTotalStep(Integer totalStep) {
-        this.totalStep = totalStep;
-    }
-
-    public Integer getNextStep() {
-        return nextStep;
-    }
-
-    public void setNextStep(Integer nextStep) {
-        this.nextStep = nextStep;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getCurrentRobotId() {
-        return currentRobotId;
-    }
-
-    public void setCurrentRobotId(String currentRobotId) {
-        this.currentRobotId = currentRobotId;
-    }
-
-    public Integer getGroupPoolId() {
-        return groupPoolId;
-    }
-
-    public void setGroupPoolId(Integer groupPoolId) {
-        this.groupPoolId = groupPoolId;
-    }
-
-    public Integer getWxGroupId() {
-        return wxGroupId;
-    }
-
-    public void setWxGroupId(Integer wxGroupId) {
-        this.wxGroupId = wxGroupId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getPickupTime() {
-        return pickupTime;
-    }
-
-    public void setPickupTime(Date pickupTime) {
-        this.pickupTime = pickupTime;
-    }
-
-    public Date getFinishTime() {
-        return finishTime;
-    }
-
-    public void setFinishTime(Date finishTime) {
-        this.finishTime = finishTime;
-    }
-
-    public Integer getTaskSendId() {
-        return taskSendId;
-    }
-
-    public void setTaskSendId(Integer taskSendId) {
-        this.taskSendId = taskSendId;
-    }
-
-    public Integer getLableSendId() {
-        return lableSendId;
-    }
-
-    public void setLableSendId(Integer lableSendId) {
-        this.lableSendId = lableSendId;
-    }
-
-    public Integer getTaskOrder() {
-        return taskOrder;
-    }
-
-    public void setTaskOrder(Integer taskOrder) {
-        this.taskOrder = taskOrder;
-    }
+    @TableField(exist = false)
+    private String db;
 
     @Override
     protected Serializable pkVal() {

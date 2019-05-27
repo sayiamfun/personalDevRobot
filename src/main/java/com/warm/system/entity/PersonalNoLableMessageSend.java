@@ -73,10 +73,6 @@ public class PersonalNoLableMessageSend extends Model<PersonalNoLableMessageSend
     @TableField(exist = false)
     private List<String> lableList;
 
-    @ApiModelProperty(value = "个人号列表")
-    @TableField(exist = false)
-    private List<PersonalNo> noList;
-
     @ApiModelProperty(value = "起始时间")
     @TableField(exist = false)
     private Date startTime;

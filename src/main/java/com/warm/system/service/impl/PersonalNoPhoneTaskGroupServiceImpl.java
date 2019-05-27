@@ -4,10 +4,13 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.warm.common.DBTypeEnum;
 import com.warm.common.DataSourceSwitch;
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoPhoneTaskGroup;
+import com.warm.system.entity.PersonalNoPhoneTaskGroupFinsh;
 import com.warm.system.mapper.PersonalNoPhoneTaskGroupMapper;
 import com.warm.system.service.db1.PersonalNoPhoneTaskGroupService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.warm.utils.VerifyUtils;
 import com.warm.utils.WebConst;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,76 +34,33 @@ public class PersonalNoPhoneTaskGroupServiceImpl extends ServiceImpl<PersonalNoP
     private static Log log = LogFactory.getLog(PersonalNoPhoneTaskGroupServiceImpl.class);
     @Autowired
     private PersonalNoPhoneTaskGroupMapper taskGroupMapper;
-    /**
-     * 根据current_robot_id查询正在执行的列表
-     * @param currRobotWxid
-     * @return
-     */
-    @Override
-    public List<PersonalNoPhoneTaskGroup> listBycurrent_robot_idAndStatusGoingAndTime(String currRobotWxid, Date date, Integer order) {
-        log.info("根据机器人微信id和状态，任务级别查找任务组（执行中的任务组）");
-        Page<PersonalNoPhoneTaskGroup> page = new Page<>(1, 10);
-        EntityWrapper<PersonalNoPhoneTaskGroup> entityWrapper = new EntityWrapper<>();
-        entityWrapper.eq("current_robot_id", currRobotWxid);
-        entityWrapper.eq("status", "未下发");
-        entityWrapper.eq("task_order", order);
-        long time = date.getTime();
-        long startTime = time - 180000L;
-        long endTime = time + 180000L;
-        entityWrapper.between("create_time", new Date(startTime), new Date(endTime));
-        log.info("根据机器人微信id和状态，任务级别查找任务组（执行中的任务组）结束");
-        List<PersonalNoPhoneTaskGroup> list = taskGroupMapper.pageList(currRobotWxid, "未下发", order, WebConst.getNowDate(new Date(startTime)), WebConst.getNowDate(new Date(endTime)), page.getOffset(), page.getLimit());
-        return list;
-    }
-    /**
-     * 根据current_robot_id查询正在等待的列表
-     * @param currRobotWxid
-     * @return
-     */
-    @DataSourceSwitch(DBTypeEnum.db1)
-    @Override
-    public List<PersonalNoPhoneTaskGroup> listBycurrent_robot_idAndStatusWating(String currRobotWxid, Integer order) {
-        log.info("根据机器人微信id和状态，任务级别查找任务组（未下发的任务组）");
-        return taskGroupMapper.listByRobotIdAndStatusAndTaskOrderAndCreateTime(currRobotWxid,"未下发",order,WebConst.getNowDate(new Date()));
-    }
 
-    /**
-     * 根据任务消息id或者是标签消息id查询所有的任务组
-     * @param id
-     * @return
-     */
-    @Override
-    public List<PersonalNoPhoneTaskGroup> listByTaskMessageId(Integer id) {
-        log.info("根据任务消息或者标签消息id查询任务组");
-        return taskGroupMapper.listByTaskMessageId(id);
-    }
 
-    /**
-     * 查询最后一个任务
-     * @param wxId
-     * @param i
-     * @return
-     */
     @Override
-    public PersonalNoPhoneTaskGroup listBycurrent_robot_idAndStatusWatingDesc(String wxId, int i) {
-        return taskGroupMapper.listBycurrent_robot_idAndStatusWatingDesc(wxId, i);
-    }
-
-    /**
-     * 根据个人号微信id和任务主题查找添加好友任务
-     * @param wxId
-     * @param s
-     * @return
-     */
-    @Override
-    public PersonalNoPhoneTaskGroup getByPersonalWxIdAndTheme(String wxId, String s, String status) {
-        String nowDate = WebConst.getNowDate(new Date(new Date().getTime() - 5 * 60 * 1000));
-        String nowDate1 = WebConst.getNowDate(new Date());
-        return taskGroupMapper.getByPersonalWxIdAndTheme(wxId, s, status, nowDate, nowDate1);
+    public PersonalNoPhoneTaskGroup getBySql(Sql sql) {
+        return taskGroupMapper.getBySql(sql);
     }
 
     @Override
-    public boolean updateInfoById(PersonalNoPhoneTaskGroup taskGroup1) {
-        return taskGroupMapper.updateInfoById(taskGroup1.getNextStep(),taskGroup1.getStatus(),taskGroup1.getId());
+    public List<PersonalNoPhoneTaskGroupFinsh> listFinshBySql(Sql sql) {
+        return taskGroupMapper.listFinshBySql(sql);
+    }
+
+    @Override
+    public List<PersonalNoPhoneTaskGroup> listBySql(Sql sql) {
+        return taskGroupMapper.listBySql(sql);
+    }
+
+    @Override
+    public Integer add(PersonalNoPhoneTaskGroup taskGroup) {
+        if(VerifyUtils.isEmpty(taskGroup.getId())){
+            return taskGroupMapper.add(taskGroup);
+        }
+        return taskGroupMapper.updateOne(taskGroup);
+    }
+
+    @Override
+    public Integer deleteBySql(Sql sql) {
+        return taskGroupMapper.deleteBySql(sql);
     }
 }

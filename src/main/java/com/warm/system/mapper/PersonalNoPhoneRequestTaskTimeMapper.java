@@ -3,6 +3,7 @@ package com.warm.system.mapper;
 import com.warm.system.entity.PersonalNoPhoneRequestTaskTime;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 
@@ -16,6 +17,9 @@ import java.util.Date;
  */
 public interface PersonalNoPhoneRequestTaskTimeMapper extends BaseMapper<PersonalNoPhoneRequestTaskTime> {
 
-    @Insert("INSERT INTO personal_zc_01.personal_no_phone_request_task_time   ( wx_id,  nick_name,  request_time )  VALUES   ( #{param1},  #{param2}, #{param3} )")
-    void insert(String wxId, String nickName, Date requestTime);
+    Integer add(@Param("entity") PersonalNoPhoneRequestTaskTime entity);
+
+    Integer updateOne(@Param("entity") PersonalNoPhoneRequestTaskTime entity);
+
+
 }

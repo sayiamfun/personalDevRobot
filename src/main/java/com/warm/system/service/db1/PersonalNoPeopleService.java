@@ -1,5 +1,6 @@
 package com.warm.system.service.db1;
 
+import com.warm.entity.Sql;
 import com.warm.entity.requre.PeopleNumReq;
 import com.warm.entity.result.LableShow;
 import com.warm.system.entity.PersonalNoPeople;
@@ -20,35 +21,11 @@ import java.util.Set;
  */
 public interface PersonalNoPeopleService extends IService<PersonalNoPeople> {
 
-    Set<LableShow> listByPersonalIdAndTaskId(Set<LableShow> noSet, List<PersonalNoTaskLable> taskLableList);
+    void deleteBySql(Sql sql);
 
-    Set<String> setByNoListAndLableNameList(PeopleNumReq peopleNumReq);
+    PersonalNoPeople getBySql(Sql sql);
 
-    List<String> listUserWxIdByTaskIdAndPersonalWxId(Integer taskId, String username, Date startTime, Date endTime);
+    Integer add(PersonalNoPeople personalNoPeople);
 
-    List<String> listUserWxIdByPersonalWxId(String wxId, Date startTime, Date endTime);
-
-    PersonalNoPeople getByPersonalIdAndUserId(String wxId, String username, Integer flag);
-
-    List<PersonalNoPeople> getByPersonalWxIdAndUserName(String wxId, String nickname);
-
-    PersonalNoPeople getByTaskIdAndUserNickName(int parseInt, String nickname);
-
-    Integer getPeopleCountByTaskId(Integer personaNoTaskId);
-
-    List<Integer> listIdByPersonalWxIdAndUserWxId(String username, String userWxId);
-
-    PersonalNoPeople getByPersonalWxIdAndUserWxId(String username, String userWxId);
-
-    PersonalNoPeople getByTaskIdAndUserWxId(int parseInt, String wxId);
-
-    List<PersonalNoPeople> ListByTaskIdAndPersonalWxId(Integer taskId, String personalNoWxId);
-
-    List<PersonalNoPeople> listByTaskIdAndTime(Integer id, Date date, Date datTaskDate);
-
-    boolean updateFlagById(Integer id, Integer flag);
-
-    void deleteByIds(List<Integer> peopleIdList);
-
-    List<PersonalNoPeople> listByPersonalIdAndUserId(String s, String fromUsername, int i);
+    List<PersonalNoPeople> listBySql(Sql sql);
 }

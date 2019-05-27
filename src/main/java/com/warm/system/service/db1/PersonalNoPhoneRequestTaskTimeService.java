@@ -13,5 +13,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface PersonalNoPhoneRequestTaskTimeService extends IService<PersonalNoPhoneRequestTaskTime> {
 
-    void insertRequestTime(PersonalNoPhoneRequestTaskTime phoneRequestTaskTime);
+    Integer add(PersonalNoPhoneRequestTaskTime phoneRequestTaskTime);
 }

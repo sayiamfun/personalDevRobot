@@ -4,6 +4,7 @@ import com.warm.system.entity.PersonalNoPhoneRequestTaskTime;
 import com.warm.system.mapper.PersonalNoPhoneRequestTaskTimeMapper;
 import com.warm.system.service.db1.PersonalNoPhoneRequestTaskTimeService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.warm.utils.VerifyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,13 @@ import org.springframework.stereotype.Service;
 public class PersonalNoPhoneRequestTaskTimeServiceImpl extends ServiceImpl<PersonalNoPhoneRequestTaskTimeMapper, PersonalNoPhoneRequestTaskTime> implements PersonalNoPhoneRequestTaskTimeService {
 
     @Autowired
-    PersonalNoPhoneRequestTaskTimeMapper phoneRequestTaskTimeMapper;
+    private PersonalNoPhoneRequestTaskTimeMapper phoneRequestTaskTimeMapper;
+
     @Override
-    public void insertRequestTime(PersonalNoPhoneRequestTaskTime phoneRequestTaskTime) {
-        phoneRequestTaskTimeMapper.insert(phoneRequestTaskTime.getWxId(),phoneRequestTaskTime.getNickName(),phoneRequestTaskTime.getRequestTime());
+    public Integer add(PersonalNoPhoneRequestTaskTime phoneRequestTaskTime) {
+        if(VerifyUtils.isEmpty(phoneRequestTaskTime.getId())){
+            return phoneRequestTaskTimeMapper.add(phoneRequestTaskTime);
+        }
+        return phoneRequestTaskTimeMapper.updateOne(phoneRequestTaskTime);
     }
 }

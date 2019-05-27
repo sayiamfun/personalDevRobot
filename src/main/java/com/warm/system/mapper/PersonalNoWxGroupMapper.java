@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface PersonalNoWxGroupMapper extends BaseMapper<PersonalNoWxGroup> {
 
-    @Select("SELECT wx_group_office_id FROM personal_zc_wx_group.personal_no_wx_group WHERE group_category_id = #{parseInt} AND tag = '活跃群' LIMIT 0,1")
+    @Select("SELECT wx_group_office_id FROM personal_zc_wx_group.wx_group WHERE group_category_id = #{parseInt} AND tag = '活跃群' LIMIT 0,1")
     String getByCategoryId(int parseInt);
     @Select("SELECT wx_group_office_id FROM qunliebian_01.wx_group WHERE group_category_id = #{parseInt} AND tag = '活跃群' LIMIT 0,1")
     String getByCategoryIdFromQunLie01(int parseInt);

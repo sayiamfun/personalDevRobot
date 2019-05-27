@@ -1,5 +1,6 @@
 package com.warm.system.service.impl;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoTaskAndKeyword;
 import com.warm.system.mapper.PersonalNoTaskAndKeywordMapper;
 import com.warm.system.service.db1.PersonalNoTaskAndKeywordService;
@@ -24,7 +25,7 @@ public class PersonalNoTaskAndKeywordServiceImpl extends ServiceImpl<PersonalNoT
     private PersonalNoTaskAndKeywordMapper taskAndKeywordMapper;
 
     @Override
-    public PersonalNoTaskAndKeyword getByTaskIdAndKeywordName(Integer personalTaskId, String content) {
-        return taskAndKeywordMapper.getByTaskIdAndKeywordName(personalTaskId,content);
+    public PersonalNoTaskAndKeyword getBySql(Sql sql) {
+        return taskAndKeywordMapper.getBySql(sql);
     }
 }

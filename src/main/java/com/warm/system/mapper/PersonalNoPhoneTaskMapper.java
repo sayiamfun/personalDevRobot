@@ -1,10 +1,10 @@
 package com.warm.system.mapper;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoPhoneTask;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
-import org.apache.ibatis.annotations.Update;
+import com.warm.system.entity.PersonalNoPhoneTaskFinish;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -17,12 +17,17 @@ import java.util.List;
  * @since 2019-03-29
  */
 public interface PersonalNoPhoneTaskMapper extends BaseMapper<PersonalNoPhoneTask> {
-    @Select("DELETE FROM personal_zc_01.personal_no_phone_task WHERE personal_no_phone_task_group_id = #{id}")
-    void deleteByTaskGrouPId(Integer id);
-    @Select("SELECT id,task_group_id,tname,step,robot_id,status,tdescription,task_json,group_pool_id,wx_group_id,task_finished_tag,create_time,pickup_time,is_client_feedback_received,feedback_received_time,is_client_feedback_finished,feedback_finished_time,failed_reason,content,content_type,task_type FROM personal_zc_01.personal_no_phone_task where task_group_id = #{param1} and step = #{param2} limit 0,1")
-    PersonalNoPhoneTask getByTaskGroupIdAndStep(Integer id, Integer nextStep);
-    @Select("SELECT id,task_group_id,tname,step,robot_id,status,tdescription,task_json,group_pool_id,wx_group_id,task_finished_tag,create_time,pickup_time,is_client_feedback_received,feedback_received_time,is_client_feedback_finished,feedback_finished_time,failed_reason,content,content_type,task_type FROM personal_zc_01.personal_no_phone_task where task_group_id = #{param1} limit 0,1")
-    List<PersonalNoPhoneTask> getByTaskGroupId(Integer id);
-    @Update("UPDATE personal_zc_01.personal_no_phone_task  SET  `status`=#{param1} WHERE id=#{param2}")
-    boolean updateStatusById(String status, Integer id);
+
+    @Select("${sql}")
+    List<PersonalNoPhoneTaskFinish> listFinshBySql(Sql sql);
+
+    @Select("${sql}")
+    PersonalNoPhoneTask getBySql(Sql sql);
+
+    Integer add(@Param("entity") PersonalNoPhoneTask entity);
+
+    Integer updateOne(@Param("entity")PersonalNoPhoneTask entity);
+
+    @Delete("${sql}")
+    Integer deleteBySql(Sql sql);
 }

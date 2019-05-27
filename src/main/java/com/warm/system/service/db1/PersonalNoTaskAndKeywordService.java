@@ -1,5 +1,6 @@
 package com.warm.system.service.db1;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoTaskAndKeyword;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -15,5 +16,5 @@ import java.util.List;
  */
 public interface PersonalNoTaskAndKeywordService extends IService<PersonalNoTaskAndKeyword> {
 
-    PersonalNoTaskAndKeyword getByTaskIdAndKeywordName(Integer personalTaskId, String content);
+    PersonalNoTaskAndKeyword getBySql(Sql sql);
 }

@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -18,6 +20,7 @@ import java.io.Serializable;
  * @author dgd123
  * @since 2019-03-29
  */
+@Data
 @TableName("personal_no_robot_log_android")
 public class PersonalNoRobotLogAndroid extends Model<PersonalNoRobotLogAndroid> {
 
@@ -38,54 +41,8 @@ public class PersonalNoRobotLogAndroid extends Model<PersonalNoRobotLogAndroid> 
     @TableField("internet_ip")
     private String internetIp;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getOperationStockWechatAccountId() {
-        return operationStockWechatAccountId;
-    }
-
-    public void setOperationStockWechatAccountId(Integer operationStockWechatAccountId) {
-        this.operationStockWechatAccountId = operationStockWechatAccountId;
-    }
-
-    public String getWxId() {
-        return wxId;
-    }
-
-    public void setWxId(String wxId) {
-        this.wxId = wxId;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Date getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-
-    public String getInternetIp() {
-        return internetIp;
-    }
-
-    public void setInternetIp(String internetIp) {
-        this.internetIp = internetIp;
-    }
+    @TableField(exist = false)
+    private String db;
 
     @Override
     protected Serializable pkVal() {

@@ -1,14 +1,10 @@
 package com.warm.system.service.db1;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.warm.system.entity.PersonalNo;
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoFriends;
 import com.baomidou.mybatisplus.service.IService;
-import com.warm.system.entity.PersonalNoUser;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * <p>
@@ -20,27 +16,13 @@ import java.util.Set;
  */
 public interface PersonalNoFriendsService extends IService<PersonalNoFriends> {
 
-    List<PersonalNoFriends> listByPersonalId(Integer personalNoId);
+    Integer add(PersonalNoFriends friends);
 
-    Set<Integer> listByPersonalList(List<PersonalNo> list);
+    PersonalNoFriends getBySql(Sql sql);
 
-    boolean insert(PersonalNoFriends friends);
+    void deleteBySql(Sql sql);
 
-    PersonalNoFriends getByPersonalIdAndUserWxId(Integer logicId, String username);
+    List<PersonalNoFriends> listBySql(Sql sql);
 
-    void removeByFriends(List<PersonalNoFriends> friends);
-
-    List<PersonalNoFriends> listByPersonalWxId(String username);
-
-    PersonalNoFriends getByPersonalWxIdAndUserWxId(String personalNoWxId, String wxId);
-
-    List<Integer> listByPersonalWxIdAndUserWxId(String wxId, String fromUsername);
-
-    List<PersonalNoUser> pageQuery(Page<PersonalNoFriends> page, Map<String, String> map);
-
-    boolean deleteFriends(String personalWxId, List<PersonalNoUser> users);
-
-    boolean blackFriends(String personalWxId, PersonalNoUser user);
-
-    void deleteByIds(List<Integer> personalNoFriendsIdList);
+    Long countBySql(Sql sql);
 }

@@ -1,5 +1,6 @@
 package com.warm.system.service.impl;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoAndKeyword;
 import com.warm.system.mapper.PersonalNoAndKeywordMapper;
 import com.warm.system.service.db1.PersonalNoAndKeywordService;
@@ -24,7 +25,7 @@ public class PersonalNoAndKeywordServiceImpl extends ServiceImpl<PersonalNoAndKe
     private PersonalNoAndKeywordMapper personalNoAndKeywordMapper;
 
     @Override
-    public PersonalNoAndKeyword listByWxIdAndKeyword(String s, String content) {
-        return personalNoAndKeywordMapper.listByWxIdAndKeyword(s,content);
+    public PersonalNoAndKeyword getBySql(Sql sql) {
+        return personalNoAndKeywordMapper.getBySql(sql);
     }
 }

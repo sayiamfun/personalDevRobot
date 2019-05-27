@@ -5,6 +5,7 @@ import com.warm.entity.robot.G;
 import com.warm.entity.robot.common.SunTaskType;
 import com.warm.entity.robot.common.VideoContent;
 import com.warm.entity.robot.common.WeChatMsgType;
+import com.warm.utils.JsonObjectUtils;
 
 import java.util.List;
 
@@ -34,7 +35,6 @@ public class SunTaskHelper
 				tempSunTask.setAlias(addFriendAlias);
 				break;
 			case SunTaskType.UPLOAD_FRIEND_LIST: // 103 通知客户端上传好友列表 {"type":103}
-				// do nothing
 				break;
 			case SunTaskType.FRIEND_ACCEPT_REQUEST: // 104 接受好友请求
 				tempSunTask.setContent(fri);
@@ -56,12 +56,12 @@ public class SunTaskHelper
 			case SunTaskType.ALTER_SIGNATURE: // 改变签名303
 				tempSunTask.setContent(content_nicknameOrTagOrUrlOrWhatups);
 				break;
-			// ==============================================================================================
-			// 没有实现的功能
-				/*
 			case SunTaskType.UPDATE_SELF_QRCODE: // 107 更新自身二维码
 				tempSunTask.setContent(bjOSSKey); // 阿里云oss的一个key，指定要把二维码上传到什么地方
 				break;
+			// ==============================================================================================
+			// 没有实现的功能
+			/*
 			case SunTaskType.ADD_FRIEND_BY_CARD: // 108 名片加好友
 				fri = new FriendRequestInfo();
 				fri.setUsername(toUsernames.get(0));
@@ -89,7 +89,6 @@ public class SunTaskHelper
 		catch (Exception e)
 		{
 			tempSunTask=null;
-			G.e(e);
 		}
 		return tempSunTask;
 	}
@@ -244,7 +243,7 @@ public class SunTaskHelper
 				VideoContent tempVideoContent = new VideoContent(videoUrl, videoThumbUrl, videoLength); // "视频URL"
 																										// "预览图URL"
 																										// 视频尺寸
-				tempSunTask.setContent(G.ms_om.writeValueAsString(tempVideoContent));
+				tempSunTask.setContent(JsonObjectUtils.objectToJson(tempVideoContent));
 				break;
 			case WeChatMsgType.WECHAT_MESSAGE_TYPE_MSG_CARD:
 				tempSunTask.setContent(content);
@@ -256,7 +255,6 @@ public class SunTaskHelper
 		catch (Exception e)
 		{
 			tempSunTask=null;
-			G.e(e);
 		}
 		return tempSunTask;
 	}
@@ -298,7 +296,6 @@ public class SunTaskHelper
 		catch (Exception e)
 		{
 			tempSunTask=null;
-			G.e(e);
 		}
 		return tempSunTask;
 	}

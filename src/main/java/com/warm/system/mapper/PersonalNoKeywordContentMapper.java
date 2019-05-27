@@ -1,5 +1,6 @@
 package com.warm.system.mapper;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoKeywordContent;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
@@ -17,8 +18,6 @@ import java.util.List;
  */
 public interface PersonalNoKeywordContentMapper extends BaseMapper<PersonalNoKeywordContent> {
 
-    @Select("SELECT id,personal_no_keyword_id,content_type,content,deleted FROM `personal_no_keyword_content` WHERE personal_no_keyword_id = #{id} and deleted = 0 ")
-    List<PersonalNoKeywordContent> listByKeywordId(Integer id);
-    @Update("UPDATE `personal_no_keyword_content` SET deleted = 1 WHERE personal_no_keyword_id = #{id} and deleted = 0")
-    void deleteByKeyWordId(Integer id);
+    @Select("${sql}")
+    List<PersonalNoKeywordContent> listBySql(Sql sql);
 }
