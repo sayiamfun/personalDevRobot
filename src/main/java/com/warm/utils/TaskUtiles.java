@@ -2,6 +2,7 @@ package com.warm.utils;
 
 
 import com.warm.entity.DB;
+import com.warm.entity.Sql;
 import com.warm.system.entity.*;
 import com.warm.system.service.db1.*;
 import org.apache.commons.logging.Log;
@@ -15,6 +16,7 @@ public class TaskUtiles {
     public static Log log = LogFactory.getLog(TaskUtiles.class);
     private static String DBTaskGroup = DB.DBAndTable(DB.PERSONAL_ZC_01,DB.personal_no_phone_task_group);
     private static String DBTask = DB.DBAndTable(DB.PERSONAL_ZC_01,DB.personal_no_phone_task);
+    private static String DBRemidFlag = DB.DBAndTable(DB.PERSONAL_ZC_01,DB.personal_no_task_remind_flag);
 
     //下发任务
     public static Map<String, Object> getMap(PersonalNoPeopleService peopleService, PersonalNoPhoneTaskGroupService taskGroupService, PersonalNoTaskService noTaskService, PersonalNoPhoneTaskService taskService,
@@ -30,7 +32,12 @@ public class TaskUtiles {
 
     //将回复消息转换为任务组
     public static void toTask(Map<String, Object> map, String personalWxId, String userWxId, Integer taskId, Integer time) {
-        insertTaskGroup(personalWxId, userWxId, map, taskId, time);
+        PersonalNoPhoneTaskGroupService taskGroupService = (PersonalNoPhoneTaskGroupService) map.get("taskGroupService");
+        String getsql = "SELECT * FROM "+DBTaskGroup+" where tname LIKE '%"+personalWxId+"发送回复消息"+userWxId+"%' and create_time > '"+WebConst.getNowDate(new Date(new Date().getTime()-600000))+"' and status = '未下发' order by id desc limit 0,1";
+        PersonalNoPhoneTaskGroup taskGroup = taskGroupService.getBySql(new Sql(getsql));
+        if(VerifyUtils.isEmpty(taskGroup)) {
+            insertTaskGroup(personalWxId, userWxId, map, taskId, time);
+        }
     }
 
     private static void insertTaskGroup(String personalWxId, String userWxId, Map<String, Object> map, Integer taskId, Integer time) {
@@ -93,6 +100,12 @@ public class TaskUtiles {
         if (taskById == null || "0".equals(taskById.getAutoRemind())) {
             return;
         }
+        String getSql = DaoGetSql.getSql("select * from "+DBRemidFlag+" where personal_no_wx_id = ? and user_wx_id = ? and personal_no_task_id = ? limit 0,1",personalNoWxId, personalFriendWxId, personalTaskId);
+        Sql sql = new Sql(getSql);
+        PersonalNoTaskRemindFlag remindFlag = remindFlagService.getBySql(sql);
+        if(!VerifyUtils.isEmpty(remindFlag)) {
+            return;
+        }
         if (new Date().getTime() - taskById.getTaskStartTime().getTime() > 0) {
             return;
         }
@@ -142,11 +155,12 @@ public class TaskUtiles {
                     }
                 }
             }
-            PersonalNoTaskRemindFlag remindFlag = new PersonalNoTaskRemindFlag();
+            remindFlag = new PersonalNoTaskRemindFlag();
             remindFlag.setPersonalNoWxId(personalNoWxId);
             remindFlag.setUserWxId(personalFriendWxId);
             remindFlag.setPersonalNoTaskId(personalTaskId);
-            remindFlagService.insert(remindFlag);
+            remindFlag.setDb(DBRemidFlag);
+            remindFlagService.add(remindFlag);
         }
     }
     public static void toMessageTask(Map<String, Object> map, String s, String fromUsername, Integer messageId, int i) {
@@ -154,6 +168,11 @@ public class TaskUtiles {
             return;
         }
         PersonalNoPhoneTaskGroupService taskGroupService = (PersonalNoPhoneTaskGroupService) map.get("taskGroupService");
+        String getsql = "SELECT * FROM "+DBTaskGroup+" where tname LIKE '%"+s+"发送个人号消息"+fromUsername+"%' and create_time > '"+WebConst.getNowDate(new Date(new Date().getTime()-600000))+"' and status = '未下发' order by id desc limit 0,1";
+        PersonalNoPhoneTaskGroup taskGroup = taskGroupService.getBySql(new Sql(getsql));
+        if(!VerifyUtils.isEmpty(taskGroup)) {
+           return;
+        }
         PersonalNoMessageService messageService = (PersonalNoMessageService) map.get("messageService");
         PersonalNoPhoneTaskService taskService = (PersonalNoPhoneTaskService) map.get("TaskService");
         PersonalNoMessage message = messageService.getById(messageId);
@@ -161,7 +180,7 @@ public class TaskUtiles {
             return;
         }
         log.info("将个人号对应消息转换为任务任务组");
-        PersonalNoPhoneTaskGroup taskGroup = new PersonalNoPhoneTaskGroup();
+        taskGroup = new PersonalNoPhoneTaskGroup();
         taskGroup.setNextStep(1);
         taskGroup.setCreateTime(new Date(new Date().getTime() + i));
         taskGroup.setTaskOrder(9);
@@ -186,7 +205,7 @@ public class TaskUtiles {
                     task.setTname(s + "发送入群邀请给" + fromUsername);
                     task.setTaskGroupId(taskGroup.getId());
                 } else {
-                    task.setTname(s + "发送问候消息给" + fromUsername);
+                    task.setTname(s + "发送个人号消息" + fromUsername);
                     task.setTaskGroupId(taskGroup.getId());
                     task.setContent(message.getMessageContentList().get(j).getContent());
                     task.setContentType(message.getMessageContentList().get(j).getContentType());

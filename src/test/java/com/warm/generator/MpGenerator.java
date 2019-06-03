@@ -78,7 +78,7 @@ public class MpGenerator {
 //                "personal_no_task_channel","personal_no_task_data","personal_no_task_lable","personal_no_task_message_send",
 //                "personal_no_task_message_send_content","personal_no_task_personal","personal_no_task_reply_content",
 //                "personal_no_task_url","personal_no_temp","personal_no_user","personal_no_value_table","personal_no_wx_user"}); // 需要生成的表
-        strategy.setInclude(new String[]{"personal_no_temp"});
+        strategy.setInclude(new String[]{"personal_no_phone_request_exception"});
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
         // strategy.setSuperEntityClass("com.baomidou.authentication.TestEntity");
@@ -104,6 +104,7 @@ public class MpGenerator {
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.warm.system");
         pc.setController("controller");
+        pc.setService("service.db1");
         //pc.setModuleName("test");
         mpg.setPackageInfo(pc);
 

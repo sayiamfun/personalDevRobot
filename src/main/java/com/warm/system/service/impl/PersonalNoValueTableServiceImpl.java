@@ -34,4 +34,9 @@ public class PersonalNoValueTableServiceImpl extends ServiceImpl<PersonalNoValue
     public List<String> listBySql(Sql sql) {
         return valueTableMapper.listBySql(sql);
     }
+
+    @Override
+    public List<Integer> listStringBySql(Sql sql) {
+        return valueTableMapper.listIntegerBySql(sql);
+    }
 }

@@ -1,11 +1,15 @@
 package com.warm.system.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoPrismRecord;
 import com.warm.system.mapper.PersonalNoPrismRecordMapper;
 import com.warm.system.service.db1.PersonalNoPrismRecordService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.warm.utils.VerifyUtils;
+import net.bytebuddy.asm.Advice;
+import org.apache.velocity.io.VelocityWriter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -21,32 +25,20 @@ import java.util.List;
  */
 @Service
 public class PersonalNoPrismRecordServiceImpl extends ServiceImpl<PersonalNoPrismRecordMapper, PersonalNoPrismRecord> implements PersonalNoPrismRecordService {
-    /**
-     * 根据参数判空
-     * @param currPR
-     * @return
-     */
+
+    @Autowired
+    private PersonalNoPrismRecordMapper prismRecordMapper;
+
     @Override
-    public boolean getByPrismRecordService(PersonalNoPrismRecord currPR) {
-        boolean flag = false;
-        EntityWrapper<PersonalNoPrismRecord> entityWrapper = new EntityWrapper<>();
-        entityWrapper.orderDesc(Arrays.asList(new String[]{"id"}));
-        if(!VerifyUtils.isEmpty(currPR.getChatroom())){
-            entityWrapper.eq("chatroom",  currPR.getChatroom());
+    public boolean add(PersonalNoPrismRecord robotPrismrecord) {
+        if(VerifyUtils.isEmpty(robotPrismrecord.getId())){
+            return prismRecordMapper.add(robotPrismrecord)>=0;
         }
-        if(!VerifyUtils.isEmpty(currPR.getCreateTime())){
-            entityWrapper.eq("create_time", currPR.getCreateTime());
-        }
-        if(!VerifyUtils.isEmpty(currPR.getMd5())){
-            entityWrapper.eq("md5", currPR.getMd5());
-        }
-        if(!VerifyUtils.isEmpty(currPR.getContent())){
-            entityWrapper.eq("content", currPR.getContent().replace("'", "\'"));
-        }
-        List<PersonalNoPrismRecord> prismRecordList = baseMapper.selectList(entityWrapper);
-        if(!VerifyUtils.collectionIsEmpty(prismRecordList)){
-            flag = true;
-        }
-        return flag;
+        return prismRecordMapper.updateOne(robotPrismrecord)>=0;
+    }
+
+    @Override
+    public PersonalNoPrismRecord getBySql(Sql sql) {
+        return prismRecordMapper.getBySql(sql);
     }
 }

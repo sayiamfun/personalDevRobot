@@ -23,4 +23,7 @@ public interface PersonalNoValueTableMapper extends BaseMapper<PersonalNoValueTa
 
     @Select("${sql}")
     List<String> listBySql(Sql sql);
+
+    @Select("${sql}")
+    List<Integer> listIntegerBySql(Sql sql);
 }

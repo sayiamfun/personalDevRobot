@@ -1,5 +1,6 @@
 package com.warm.system.service.db1;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoSendMessage;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -15,9 +16,9 @@ import java.util.List;
  */
 public interface PersonalNoSendMessageService extends IService<PersonalNoSendMessage> {
 
-    PersonalNoSendMessage getMessageIdByWxIdAndTiming(String s,int i);
+    PersonalNoSendMessage getBySql(Sql sql);
 
-    List<PersonalNoSendMessage> listByPersonalWxId(String s);
+    List<PersonalNoSendMessage> listBySql(Sql sql);
 
-    PersonalNoSendMessage getById(Integer personalNoSendMessageId);
+    void updateBySql(Sql sql);
 }

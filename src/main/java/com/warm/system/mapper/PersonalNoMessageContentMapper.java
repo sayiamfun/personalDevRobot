@@ -1,5 +1,6 @@
 package com.warm.system.mapper;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoMessageContent;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
@@ -16,6 +17,6 @@ import java.util.List;
  */
 public interface PersonalNoMessageContentMapper extends BaseMapper<PersonalNoMessageContent> {
 
-    @Select("SELECT * from personal_zc_01.personal_no_message_content where message_id = #{param1}")
-    List<PersonalNoMessageContent> listByMessageId(Integer messageId);
+    @Select("${sql}")
+    List<PersonalNoMessageContent> listBySql(Sql sql);
 }

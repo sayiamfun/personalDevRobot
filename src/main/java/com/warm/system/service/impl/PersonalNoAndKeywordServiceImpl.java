@@ -28,4 +28,9 @@ public class PersonalNoAndKeywordServiceImpl extends ServiceImpl<PersonalNoAndKe
     public PersonalNoAndKeyword getBySql(Sql sql) {
         return personalNoAndKeywordMapper.getBySql(sql);
     }
+
+    @Override
+    public void updateBySql(Sql sql) {
+        personalNoAndKeywordMapper.updateBySql(sql);
+    }
 }

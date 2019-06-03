@@ -1,5 +1,6 @@
 package com.warm.system.mapper;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoMessage;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
@@ -14,6 +15,7 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface PersonalNoMessageMapper extends BaseMapper<PersonalNoMessage> {
 
-    @Select("SELECT * from personal_zc_01.personal_no_message where id = #{messageId}")
-    PersonalNoMessage getById(Integer messageId);
+
+    @Select("${sql}")
+    PersonalNoMessage getBySql(Sql sql);
 }

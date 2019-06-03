@@ -17,4 +17,6 @@ import java.util.List;
 public interface PersonalNoAndKeywordService extends IService<PersonalNoAndKeyword> {
 
     PersonalNoAndKeyword getBySql(Sql sql);
+
+    void updateBySql(Sql sql);
 }

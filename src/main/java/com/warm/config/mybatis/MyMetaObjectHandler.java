@@ -19,9 +19,9 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         System.out.println("*************************");
         System.out.println("insert fill");
         System.out.println("*************************");
-        this.setFieldValByName("isReporterMentioned", false, metaObject);
-        this.setFieldValByName("isRobotMentioned", false, metaObject);
-        this.setFieldValByName("isSent", false, metaObject);
+        this.setFieldValByName("reporterMentioned", false, metaObject);
+        this.setFieldValByName("robotMentioned", false, metaObject);
+        this.setFieldValByName("sent", false, metaObject);
 
     }
 

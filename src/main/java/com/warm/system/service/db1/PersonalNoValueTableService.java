@@ -19,4 +19,6 @@ public interface PersonalNoValueTableService extends IService<PersonalNoValueTab
     PersonalNoValueTable getBySql(Sql sql);
 
     List<String> listBySql(Sql sql);
+
+    List<Integer> listStringBySql(Sql sql);
 }

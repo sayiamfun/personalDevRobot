@@ -91,6 +91,9 @@ public class PersonalNoPrismRecord extends Model<PersonalNoPrismRecord> {
     @TableField(exist = false)
     private List<String> toUsernames;
 
+    @TableField(exist = false)
+    private String db;
+
 
     @Override
     protected Serializable pkVal() {

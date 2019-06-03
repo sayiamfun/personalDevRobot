@@ -90,7 +90,7 @@ public class PersonalNoPhoneTaskGroup extends Model<PersonalNoPhoneTaskGroup> {
     private Integer taskOrder;
 
     @TableField("message_send_id")
-    private String messageSendId;
+    private Integer messageSendId;
 
     @TableField(exist = false)
     private String db;

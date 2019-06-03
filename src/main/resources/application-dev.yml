@@ -43,6 +43,7 @@ spring:
        initialSize: 5
        minIdle: 5
        maxActive: 20
+
      connection-init-sqls: set names utf8mb4
   #返回json的全局时间格式
   jackson:
@@ -61,11 +62,4 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: id_worker_str
-#线下
-fileServer:
-  #文件上传服务器地址
-  url: http://47.112.102.117:8080
-  confUrl: F:/myproject/Idea/gerenhao/personalZCRobot/src/main/resources/tracker.conf
-  ms_SERVER_ROOT_URL: http://www.jiazhang111.xyz
-  qrurl: http://www.jiazhang111.xyz:9091
 

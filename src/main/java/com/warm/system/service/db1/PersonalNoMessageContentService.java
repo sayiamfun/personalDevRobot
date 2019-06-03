@@ -1,5 +1,6 @@
 package com.warm.system.service.db1;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoMessageContent;
 import com.baomidou.mybatisplus.service.IService;
 import org.apache.ibatis.annotations.Select;
@@ -16,5 +17,5 @@ import java.util.List;
  */
 public interface PersonalNoMessageContentService extends IService<PersonalNoMessageContent> {
 
-    List<PersonalNoMessageContent> listByMessageId(Integer messageId);
+    List<PersonalNoMessageContent> listBySql(Sql sql);
 }

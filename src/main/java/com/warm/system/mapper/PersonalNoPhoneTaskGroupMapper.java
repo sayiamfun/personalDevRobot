@@ -37,4 +37,7 @@ public interface PersonalNoPhoneTaskGroupMapper extends BaseMapper<PersonalNoPho
 
     @Delete("${sql}")
     Integer deleteBySql(Sql sql);
+
+    @Select("${sql}")
+    Long countBySql(Sql sql);
 }

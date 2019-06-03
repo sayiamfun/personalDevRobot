@@ -63,4 +63,9 @@ public class PersonalNoPhoneTaskGroupServiceImpl extends ServiceImpl<PersonalNoP
     public Integer deleteBySql(Sql sql) {
         return taskGroupMapper.deleteBySql(sql);
     }
+
+    @Override
+    public Long countBySql(Sql sql) {
+        return taskGroupMapper.countBySql(sql);
+    }
 }

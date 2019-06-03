@@ -17,13 +17,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Stream;
 
 public class DynamicDatasourceApplicationTests {
 
 	@Test
 	public void contextLoads() {
-
+		int index = new Random().nextInt(2);
+		System.err.println(index);
 	}
 
 }

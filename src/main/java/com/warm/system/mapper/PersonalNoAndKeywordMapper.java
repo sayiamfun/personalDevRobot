@@ -4,6 +4,7 @@ import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoAndKeyword;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -19,4 +20,7 @@ public interface PersonalNoAndKeywordMapper extends BaseMapper<PersonalNoAndKeyw
 
     @Select("${sql}")
     PersonalNoAndKeyword getBySql(Sql sql);
+
+    @Update("${sql}")
+    void updateBySql(Sql sql);
 }

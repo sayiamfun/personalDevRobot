@@ -1,6 +1,7 @@
 package com.warm.system.service.db1;
 
 import com.baomidou.mybatisplus.service.IService;
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoTaskRemindFlag;
 
 /**
@@ -13,5 +14,8 @@ import com.warm.system.entity.PersonalNoTaskRemindFlag;
  */
 public interface PersonalNoTaskRemindFlagService extends IService<PersonalNoTaskRemindFlag> {
 
-    PersonalNoTaskRemindFlag getByPersonalWxIdAndUserWxIdAndTaskId(String personalNoWxId, String personalFriendWxId, Integer personalTaskId);
+
+    Integer add(PersonalNoTaskRemindFlag remindFlag);
+
+    PersonalNoTaskRemindFlag getBySql(Sql sql);
 }

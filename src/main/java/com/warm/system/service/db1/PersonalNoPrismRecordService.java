@@ -1,5 +1,6 @@
 package com.warm.system.service.db1;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoPrismRecord;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -13,5 +14,7 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface PersonalNoPrismRecordService extends IService<PersonalNoPrismRecord> {
 
-    boolean getByPrismRecordService(PersonalNoPrismRecord currPR);
+    boolean add(PersonalNoPrismRecord robotPrismrecord);
+
+    PersonalNoPrismRecord getBySql(Sql sql);
 }

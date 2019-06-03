@@ -1,5 +1,6 @@
 package com.warm.system.service.impl;
 
+import com.warm.entity.Sql;
 import com.warm.system.entity.PersonalNoSendMessage;
 import com.warm.system.mapper.PersonalNoSendMessageMapper;
 import com.warm.system.service.db1.PersonalNoSendMessageService;
@@ -23,18 +24,19 @@ public class PersonalNoSendMessageServiceImpl extends ServiceImpl<PersonalNoSend
     @Autowired
     private PersonalNoSendMessageMapper sendMessageMapper;
 
+
     @Override
-    public PersonalNoSendMessage getMessageIdByWxIdAndTiming(String s, int i) {
-        return sendMessageMapper.getMessageIdByWxIdAndTiming(s,0);
+    public PersonalNoSendMessage getBySql(Sql sql) {
+        return sendMessageMapper.getBySql(sql);
     }
 
     @Override
-    public List<PersonalNoSendMessage> listByPersonalWxId(String s) {
-        return sendMessageMapper.listByPersonalWxId(s);
+    public List<PersonalNoSendMessage> listBySql(Sql sql) {
+        return sendMessageMapper.listBySql(sql);
     }
 
     @Override
-    public PersonalNoSendMessage getById(Integer personalNoSendMessageId) {
-        return sendMessageMapper.getById(personalNoSendMessageId);
+    public void updateBySql(Sql sql) {
+        sendMessageMapper.updateBySql(sql);
     }
 }

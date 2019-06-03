@@ -27,4 +27,6 @@ public interface PersonalNoPhoneTaskGroupService extends IService<PersonalNoPhon
     Integer add(PersonalNoPhoneTaskGroup taskGroup);
 
     Integer deleteBySql(Sql sql);
+
+    Long countBySql(Sql sql);
 }
