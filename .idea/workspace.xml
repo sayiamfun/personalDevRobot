@@ -2,130 +2,308 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed2a3698-552d-40f5-9e89-e048bfca0e69" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/entity/PersonalNoCategoryAndGroup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/entity/PersonalNoFriendsCirclePersonal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/entity/PersonalNoPhoneRequestException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoCategoryAndGroupMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoFriendsCirclePersonalMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoPhoneRequestExceptionMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoCategoryAndGroupService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoFriendsCirclePersonalService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoPhoneRequestExceptionService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoCategoryAndGroupServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoFriendsCirclePersonalServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoPhoneRequestExceptionServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Mapper/PersonalNoPhoneRequestExceptionMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Mapper/PersonalNoPrismRecordMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Mapper/PersonalNoTaskRemindFlagMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/DynamicDatasourceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/DynamicDatasourceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/config/mybatis/MyMetaObjectHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/config/mybatis/MyMetaObjectHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/entity/robot/G.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/entity/robot/G.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/controller/RobotController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/controller/RobotController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/entity/PersonalNoPhoneTaskGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/entity/PersonalNoPhoneTaskGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/entity/PersonalNoPrismRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/entity/PersonalNoPrismRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/entity/PersonalNoTaskRemindFlag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/entity/PersonalNoTaskRemindFlag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoAndKeywordMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoAndKeywordMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoMessageContentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoMessageContentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoMessageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoMessageMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoPhoneTaskGroupMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoPhoneTaskGroupMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoPrismRecordMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoPrismRecordMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoSendMessageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoSendMessageMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoTaskMessageSendContentMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoTaskMessageSendMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoTaskPersonalMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoTaskPersonalMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoTaskRemindFlagMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoTaskRemindFlagMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoTimingNoMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoValueTableMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoValueTableMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoWxUserMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoAndKeywordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoAndKeywordService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoMessageContentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoMessageContentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoPhoneTaskGroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoPhoneTaskGroupService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoPrismRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoPrismRecordService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoSendMessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoSendMessageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoTaskMessageSendContentService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoTaskMessageSendService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoTaskPersonalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoTaskPersonalService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoTaskRemindFlagService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoTaskRemindFlagService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoTimingNoService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoValueTableService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoValueTableService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoWxUserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/UploadService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoAndKeywordServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoAndKeywordServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoMessageContentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoMessageContentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoMessageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoMessageServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoPhoneTaskGroupServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoPhoneTaskGroupServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoPrismRecordServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoPrismRecordServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoSendMessageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoSendMessageServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoTaskMessageSendContentServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoTaskMessageSendServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoTaskPersonalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoTaskPersonalServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoTaskRemindFlagServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoTaskRemindFlagServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoTimingNoServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoValueTableServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoValueTableServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoWxUserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/UploadServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/utils/TaskUtiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/utils/TaskUtiles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/utils/WebConst.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/utils/WebConst.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Mapper/PersonalNoRequestExceptionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Mapper/PersonalNoRequestExceptionMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/warm/DynamicDatasourceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/warm/DynamicDatasourceApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/warm/generator/MpGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/warm/generator/MpGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/PersonalDevRobot.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoRequestExceptionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoRequestExceptionMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/DynamicDatasourceApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/DynamicDatasourceApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/config/mybatis/MyMetaObjectHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/config/mybatis/MyMetaObjectHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/G.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/G.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/controller/RobotController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/controller/RobotController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoPhoneTaskGroup.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoPhoneTaskGroup.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoPrismRecord.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoPrismRecord.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTaskRemindFlag.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTaskRemindFlag.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoAndKeywordMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoAndKeywordMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoMessageContentMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoMessageContentMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoMessageMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoMessageMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoPhoneTaskGroupMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoPhoneTaskGroupMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoPrismRecordMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoPrismRecordMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoSendMessageMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoSendMessageMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTaskMessageSendContentMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTaskMessageSendMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTaskPersonalMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTaskPersonalMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTaskRemindFlagMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTaskRemindFlagMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTimingNoMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoValueTableMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoValueTableMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoWxUserMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoAndKeywordService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoAndKeywordService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoMessageContentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoMessageContentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoPhoneTaskGroupService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoPhoneTaskGroupService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoPrismRecordService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoPrismRecordService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoSendMessageService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoSendMessageService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTaskMessageSendContentService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTaskMessageSendService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTaskPersonalService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTaskPersonalService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTaskRemindFlagService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTaskRemindFlagService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTimingNoService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoValueTableService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoValueTableService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoWxUserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/UploadService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoAndKeywordServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoAndKeywordServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoMessageContentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoMessageContentServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoMessageServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoMessageServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoPhoneTaskGroupServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoPhoneTaskGroupServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoPrismRecordServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoPrismRecordServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoSendMessageServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoSendMessageServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTaskMessageSendContentServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTaskPersonalServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTaskPersonalServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTaskRemindFlagServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTaskRemindFlagServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTimingNoServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoValueTableServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoValueTableServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoWxUserServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/UploadServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/TaskUtiles.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/utils/TaskUtiles.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/WebConst.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/utils/WebConst.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warm/DynamicDatasourceApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/warm/DynamicDatasourceApplicationTests.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warm/generator/MpGenerator$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/warm/generator/MpGenerator$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warm/generator/MpGenerator$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/warm/generator/MpGenerator$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warm/generator/MpGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/warm/generator/MpGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoFriendsMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoOperationStockWechatAccountMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoPeopleMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoPhoneRequestExceptionMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoPhoneRequestTaskTimeMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoPhoneTaskFinishMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoPhoneTaskGroupFinshMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoPhoneTaskGroupMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoPhoneTaskMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoPrismRecordMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoRequestExceptionMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoRobotLogAndroidMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoTaskRemindFlagMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoTempMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Mapper/PersonalNoUserMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application-dev.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/DynamicDatasourceApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/common/DBTypeEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/common/DataSourceSwitch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/common/DataSourceSwitchAspect.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/common/DbContextHolder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/common/DynamicDataSource.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/config/mybatis/MyMetaObjectHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/config/mybatis/MybatisPlusConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/config/mybatis/Swagger2Config.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/DB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/PageResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/R.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/ResultCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/Sql.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/TuLingEntity/Emotion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/TuLingEntity/Intent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/TuLingEntity/Parameters.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/TuLingEntity/Results.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/TuLingEntity/RobotEmotion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/TuLingEntity/TuLingResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/TuLingEntity/UserEmotion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/TuLingEntity/Values.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/query/QueryFriendsCircle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/query/QueryPersonal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/query/QueryPersonalData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/query/QueryPersonalTask.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/requre/BatchUpdateObject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/requre/GetAccessTockenResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/requre/GetNoEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/requre/PeopleNumReq.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/requre/QueryRoad.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/requre/RecommendedReasons.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/requre/WxUrlResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/result/LableManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/result/LableShow.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/result/Num.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/result/ResultPersonalData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/result/ResultPersonalDataWithTask.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/result/ResultPersonalDataWithTime.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/result/TaskUrlResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/G.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/WxResponseInfo2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/WxResponseInfo3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/EarthErrorPrompt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/PrismRecordType$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/PrismRecordType$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/PrismRecordType$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/PrismRecordType$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/PrismRecordType$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/PrismRecordType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/QrCodeChatroomRel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/SunTaskType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/UsernameChatroomRel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/VideoContent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/WeChatFriend.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/WeChatMsgType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/common/WeChatroom.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/AddFriendRequestInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/AddGlobalBlockUserInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/AddLogInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/Callback4InviteInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/DeviceWeChatInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/FeedBackReceivedInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/FeedbackFailedInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/FeedbackTaskInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/FriendRequestInfoWarpper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/GetIDInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/NewRegisterInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/PickupTaskInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/QueryChameleonInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/QueryConfInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/ReportErrorsInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/SignContent4OSSInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/StatusDescInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/StatusInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/UpdateBasicInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/UpdateFriendNicknameInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/UpdateQrCodeChatroomRelInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/UpdateRobotIpInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/UpdateSelfQrCodeUrlInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/UpdateUsernameChatroomRelInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/UpdateWeChatFriendInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/UpdateWeChatInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/UpdateWeChatroomInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/UploadAdminListInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/UploadFollowedOfficalAccountsInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/UploadFriendListInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/WritePrismRecordInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/requestInfo/收到添加好友请求包装类.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/responseInfo/BooleanResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/responseInfo/DeviceConf.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/responseInfo/FriendRequestInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/responseInfo/IntegerResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/responseInfo/Response.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/responseInfo/SunApiResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/responseInfo/SunTask.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/entity/robot/responseInfo/SunTaskHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/controller/RobotController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PassageVisitorRecord.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoAndKeyword.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoBlacklist.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoCategoryAndGroup.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoFriends.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoFriendsCirclePersonal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoGroupCategory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoGroupCategorySet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoKeyword.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoKeywordContent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoLable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoLableCategory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoLableMessageSend.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoLableMessageSendContent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoMessageContent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoOperationStockWechatAccount.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoPassageClickRecord.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoPeople.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoPhoneRequestException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoPhoneRequestTaskTime.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoPhoneTask.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoPhoneTaskFinish.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoPhoneTaskGroup.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoPhoneTaskGroupFinsh.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoPrismRecord.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoRequestException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoRoad.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoRobotLogAndroid.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoSendMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoSmallFace.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoSuperuesr.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTask.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTaskAndKeyword.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTaskBeginRemind.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTaskChannel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTaskData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTaskLable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTaskMessageSend.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTaskMessageSendContent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTaskPersonal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTaskRemindFlag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTaskReplyContent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTaskUrl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTemp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoTimingNo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoValueTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoWxGroup.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/PersonalNoWxUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/entity/ShortUrl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PassageVisitorRecordMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoAndKeywordMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoBlacklistMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoCategoryAndGroupMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoFriendsCirclePersonalMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoFriendsMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoGroupCategoryMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoGroupCategorySetMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoKeywordContentMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoLableMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoLableMessageSendContentMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoMessageContentMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoMessageMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoOperationStockWechatAccountMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoPeopleMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoPhoneRequestExceptionMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoPhoneRequestTaskTimeMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoPhoneTaskFinishMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoPhoneTaskGroupFinshMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoPhoneTaskGroupMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoPhoneTaskMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoPrismRecordMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoRequestExceptionMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoRobotLogAndroidMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoSendMessageMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoSmallFaceMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTaskAndKeywordMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTaskBeginRemindMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTaskLableMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTaskMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTaskPersonalMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTaskRemindFlagMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTaskReplyContentMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoTempMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoUserMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoValueTableMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/PersonalNoWxGroupMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/mapper/ShortUrlMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PassageVisitorRecordService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoAndKeywordService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoBlacklistService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoCategoryAndGroupService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoFriendsCirclePersonalService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoFriendsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoKeywordContentService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoLableMessageSendContentService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoMessageContentService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoMessageService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoPeopleService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoPhoneRequestExceptionService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoPhoneRequestTaskTimeService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoPhoneTaskFinishService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoPhoneTaskGroupFinshService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoPhoneTaskGroupService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoPhoneTaskService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoPrismRecordService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoRequestExceptionService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoRobotLogAndroidService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoSendMessageService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoSmallFaceService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTaskAndKeywordService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTaskBeginRemindService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTaskLableService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTaskPersonalService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTaskRemindFlagService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTaskReplyContentService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTaskService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoTempService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoUserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/PersonalNoValueTableService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db1/ShortUrlService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db2/PersonalNoOperationStockWechatAccountService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db3/PersonalNoGroupCategoryService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db3/PersonalNoGroupCategorySetService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/db3/PersonalNoWxGroupService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PassageVisitorRecordServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoAndKeywordServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoBlacklistServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoCategoryAndGroupServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoFriendsCirclePersonalServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoFriendsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoGroupCategoryServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoGroupCategorySetServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoKeywordContentServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoLableMessageSendContentServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoMessageContentServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoMessageServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoOperationStockWechatAccountServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoPeopleServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoPhoneRequestExceptionServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoPhoneRequestTaskTimeServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoPhoneTaskFinishServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoPhoneTaskGroupFinshServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoPhoneTaskGroupServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoPhoneTaskServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoPrismRecordServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoRequestExceptionServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoRobotLogAndroidServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoSendMessageServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoSmallFaceServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTaskAndKeywordServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTaskBeginRemindServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTaskLableServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTaskPersonalServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTaskRemindFlagServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTaskReplyContentServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTaskServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoTempServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoUserServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoValueTableServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/PersonalNoWxGroupServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/service/impl/ShortUrlServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/CookieUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/DaoGetSql.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/HttpClientUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/ImageUpload/BASE64DecodedMultipartFile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/ImageUpload/Base64Util.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/ImageUpload/ImageUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/JsonObjectUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/SessionUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/TaskUtiles.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/VerifyUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/WebConst.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/tulingUtil/JSONUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/utils/tulingUtil/TuLingParam.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/oss_config.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/policy/all_policy.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/policy/bucket_read_policy.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/policy/bucket_read_write_policy.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warm/DynamicDatasourceApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warm/generator/MpGenerator$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warm/generator/MpGenerator$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warm/generator/MpGenerator$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/warm/generator/MpGenerator.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -157,8 +335,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/controller/RobotController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="1090" column="3" selection-start-line="1090" selection-start-column="3" selection-end-line="1090" selection-end-column="3" />
+            <state relative-caret-position="534">
+              <caret line="1039" column="47" lean-forward="true" selection-start-line="1039" selection-start-column="47" selection-end-line="1039" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -321,7 +499,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="735" />
     <option name="y" value="710" />
     <option name="width" value="1380" />
@@ -341,32 +519,6 @@
             <path>
               <item name="PersonalDevRobot" type="b2602c69:ProjectViewProjectNode" />
               <item name="personalDevRobot" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PersonalDevRobot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="personalDevRobot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PersonalDevRobot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="personalDevRobot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PersonalDevRobot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="personalDevRobot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PersonalDevRobot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="personalDevRobot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="warm" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -509,7 +661,7 @@
       <workItem from="1558709407287" duration="98173000" />
       <workItem from="1559291920672" duration="11821000" />
       <workItem from="1559522929774" duration="2621000" />
-      <workItem from="1559532496295" duration="607000" />
+      <workItem from="1559532496295" duration="7158000" />
     </task>
     <servers />
   </component>
@@ -546,14 +698,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="382032000" />
+    <option name="totallyTimeSpent" value="388583000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="3086" height="1702" extended-state="7" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="3086" height="1702" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5415897" visible="true" weight="0.20509428" />
-      <window_info id="Structure" order="1" sideWeight="0.45841035" side_tool="true" visible="true" weight="0.20509428" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4709042" visible="true" weight="0.14687397" />
+      <window_info id="Structure" order="1" sideWeight="0.52909577" side_tool="true" visible="true" weight="0.14687397" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -562,8 +713,8 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3299363" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.29175705" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49966976" visible="true" weight="0.31082803" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.28853503" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49966976" weight="0.31082803" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -574,12 +725,12 @@
       <window_info anchor="bottom" id="Java Enterprise" order="11" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="bottom" id="Version Control" order="13" />
-      <window_info anchor="bottom" id="Messages" order="14" weight="0.3546638" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.35414013" />
       <window_info anchor="right" id="aiXcoder" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.075421765" />
+      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.10552432" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Database" order="6" weight="0.049207397" />
@@ -970,20 +1121,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/controller/RobotController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="1090" column="3" selection-start-line="1090" selection-start-column="3" selection-end-line="1090" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoPrismRecordService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoPrismRecordServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
@@ -999,6 +1136,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoPrismRecordService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/controller/RobotController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="534">
+          <caret line="1039" column="47" lean-forward="true" selection-start-line="1039" selection-start-column="47" selection-end-line="1039" selection-end-column="47" />
         </state>
       </provider>
     </entry>

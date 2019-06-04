@@ -1035,14 +1035,9 @@ public class RobotController {
             PersonalNoPrismRecord currPR = writePrismRecordInfo.recordList.get(0);
             String getSql = "";
             Sql sql = new Sql();
-            if(!VerifyUtils.isEmpty(currPR) && !VerifyUtils.isEmpty(currPR.getContent())) {
-                getSql = DaoGetSql.getSql("SELECT * FROM " + DBRobotPrismrecord + " WHERE `content` = ? AND `md5`  = ? AND `from_username` = ? LIMIT 0,1", currPR.getContent().replaceAll("'", ""), currPR.getMd5(), currPR.getFromUsername());
-                sql.setSql(getSql);
-                PersonalNoPrismRecord oldCurrPR = prismrecordService.getBySql(sql);
-                if (VerifyUtils.isEmpty(oldCurrPR)) {
-                    currPR.setDb(DBRobotPrismrecord);
-                    prismrecordService.add(currPR);
-                }
+            if (!VerifyUtils.isEmpty(currPR) && !VerifyUtils.isEmpty(currPR.getContent())) {
+                currPR.setDb(DBRobotPrismrecord);
+                prismrecordService.add(currPR);
             }
             getSql = DaoGetSql.getSql("SELECT * from " + DBWeChat + " where id = ? and operation_project_instance_id = ?", currPR.getLogicId(), G.ms_OPERATION_PROJECT_INSTANCE_ID);
             sql.setSql(getSql);
@@ -2096,6 +2091,84 @@ public class RobotController {
     public void reportPhoneTime() {
         System.err.println(WebConst.getNowDate(new Date()));
         System.out.println("查看手机请求任务时间");
+        log.info("获取上报手机不请求任务的微信id列表");
+        String getSql = DaoGetSql.getSql("SELECT id FROM " + DBValueTable + " WHERE `type` = '2' and deleted = 0");
+        Sql sql = new Sql(getSql);
+        List<Integer> idList = valueTableService.listStringBySql(sql);
+        if (VerifyUtils.collectionIsEmpty(idList)) {
+            return;
+        }
+        int index = idList.get(new Random().nextInt(idList.size()));
+        getSql = DaoGetSql.getById(DBValueTable, index);
+        sql.setSql(getSql);
+        PersonalNoValueTable bySql = valueTableService.getBySql(sql);
+        if (VerifyUtils.isEmpty(bySql)) {
+            return;
+        }
+        log.info("处理十分钟未请求任务的个人号机器人");
+        getSql = DaoGetSql.getSql("SELECT * from " + DBWeChat + " where last_request_job_time < ? and operation_project_instance_id = ? and status <> '封禁'", WebConst.getNowDate(new Date(new Date().getTime() - 10 * 60 * 1000)), G.ms_OPERATION_PROJECT_INSTANCE_ID);
+        sql.setSql(getSql);
+        List<PersonalNoOperationStockWechatAccount> operationStockWechatAccounts = wechatAccountService.listbySql(sql);
+        if (VerifyUtils.collectionIsEmpty(operationStockWechatAccounts)) {
+            return;
+        }
+        log.info("取得所有的管理员微信id");
+        getSql = DaoGetSql.getSql("select wx_id from " + DBValueTable + " where type = ? and deleted = 0", 0);
+        sql.setSql(getSql);
+        List<String> tiList = valueTableService.listBySql(sql);
+        if (VerifyUtils.collectionIsEmpty(tiList)) {
+            return;
+        }
+        log.info("循环给手机添加任务");
+        StringBuffer stringBuffer = new StringBuffer();
+        for (PersonalNoOperationStockWechatAccount operationStockWechatAccount : operationStockWechatAccounts) {
+            if (!WebConst.WECHATSTATUS.equals(operationStockWechatAccount.getStatus())) {
+                stringBuffer.append("个人号项目机器人不请求任务\nwxId：" + operationStockWechatAccount.getWxId()
+                        + "\n类型：" + G.ms_currProjectInstanceName
+                        + "\n微信号：" + operationStockWechatAccount.getWxIdBieMing()
+                        + "\n昵称：" + operationStockWechatAccount.getNickName()
+                        + "\n最后请求任务时间" + WebConst.getNowDate(operationStockWechatAccount.getLastRequestJobTime()) + "\n");
+            }
+        }
+        Date date = new Date();
+        for (String s : tiList) {
+            date = new Date(date.getTime() + 30 * 1000);
+            PersonalNoPhoneTaskGroup taskGroup = new PersonalNoPhoneTaskGroup();
+            taskGroup.setCreateTime(date);
+            taskGroup.setNextStep(1);
+            taskGroup.setTaskOrder(0);
+            taskGroup.setStatus("未下发");
+            taskGroup.setTname(bySql.getNickName() + " " + bySql.getWxId() + "发送个人号不请求任务消息给" + s);
+            taskGroup.setCurrentRobotId(bySql.getWxId());
+            taskGroup.setTotalStep(1);
+            taskGroup.setDb(DBTaskGroup);
+            boolean save = taskGroupService.add(taskGroup) > 0;
+            if (save) {
+                log.info("开始添加任务");
+                PersonalNoPhoneTask task = new PersonalNoPhoneTask();
+                task.setTname(bySql.getNickName() + " " + bySql.getWxId() + "发送个人号不请求任务消息给" + s);
+                task.setTaskGroupId(taskGroup.getId());
+                task.setContent(stringBuffer.toString());
+                task.setContentType("文字");
+                task.setStep(1);
+                task.setTaskType(100);
+                task.setRobotId(s);
+                task.setCreateTime(date);
+                task.setStatus("未下发");
+                task.setDb(DBTask);
+                boolean save1 = taskService.add(task) > 0;
+                if (!save1) {
+                    log.info("插入任务失败");
+                    throw new RuntimeException("插入任务失败");
+                }
+            }
+        }
+    }
+
+    @Scheduled(fixedRate = 3600000)
+    public void reportUpdateFriendsList() {
+        System.err.println(WebConst.getNowDate(new Date()));
+        System.out.println("下发手机上报好友列表任务");
         log.info("处理好友列表");
         String getSql = DaoGetSql.getSql("SELECT * from " + DBWeChat + " where last_request_job_time > ? and operation_project_instance_id = ?", WebConst.getNowDate(new Date(new Date().getTime() - 5 * 60 * 1000)), G.ms_OPERATION_PROJECT_INSTANCE_ID);
         Sql sql = new Sql(getSql);
@@ -2121,77 +2194,6 @@ public class RobotController {
                 task.setContentType("上传好友列表");
                 task.setStep(1);
                 task.setTaskType(SunTaskType.UPLOAD_FRIEND_LIST);
-                task.setCreateTime(date);
-                task.setStatus("未下发");
-                task.setDb(DBTask);
-                boolean save1 = taskService.add(task) > 0;
-                if (!save1) {
-                    log.info("插入任务失败");
-                    throw new RuntimeException("插入任务失败");
-                }
-            }
-        }
-        getSql = DaoGetSql.getSql("SELECT id FROM " + DBValueTable + " WHERE `type` = '2' and deleted = 0");
-        sql.setSql(getSql);
-        List<Integer> idList = valueTableService.listStringBySql(sql);
-        if (VerifyUtils.isEmpty(idList)) {
-            return;
-        }
-        int index = idList.get(new Random().nextInt(idList.size()));
-        getSql = DaoGetSql.getById(DBValueTable, index);
-        sql.setSql(getSql);
-        PersonalNoValueTable bySql = valueTableService.getBySql(sql);
-        if (VerifyUtils.isEmpty(bySql)) {
-            return;
-        }
-        log.info("处理十分钟未请求任务的个人号机器人");
-        getSql = DaoGetSql.getSql("SELECT * from " + DBWeChat + " where last_request_job_time < ? and operation_project_instance_id = ? and status <> '封禁'", WebConst.getNowDate(new Date(new Date().getTime() - 10 * 60 * 1000)), G.ms_OPERATION_PROJECT_INSTANCE_ID);
-        sql.setSql(getSql);
-        operationStockWechatAccounts = wechatAccountService.listbySql(sql);
-        if (VerifyUtils.collectionIsEmpty(operationStockWechatAccounts)) {
-            return;
-        }
-        log.info("取得所有的管理员微信id");
-        getSql = DaoGetSql.getSql("select wx_id from " + DBValueTable + " where type = ? and deleted = 0", 0);
-        sql.setSql(getSql);
-        List<String> tiList = valueTableService.listBySql(sql);
-        if (VerifyUtils.collectionIsEmpty(tiList)) {
-            return;
-        }
-        log.info("循环给手机添加任务");
-        StringBuffer stringBuffer = new StringBuffer();
-        for (PersonalNoOperationStockWechatAccount operationStockWechatAccount : operationStockWechatAccounts) {
-            if (!WebConst.WECHATSTATUS.equals(operationStockWechatAccount.getStatus())) {
-                stringBuffer.append("个人号项目机器人不请求任务\nwxId：" + operationStockWechatAccount.getWxId()
-                        + "\n类型：" + G.ms_currProjectInstanceName
-                        + "\n微信号：" + operationStockWechatAccount.getWxIdBieMing()
-                        + "\n昵称：" + operationStockWechatAccount.getNickName()
-                        + "\n最后请求任务时间" + WebConst.getNowDate(operationStockWechatAccount.getLastRequestJobTime()) + "\n");
-            }
-        }
-        date = new Date();
-        for (String s : tiList) {
-            date = new Date(date.getTime() + 30 * 1000);
-            PersonalNoPhoneTaskGroup taskGroup = new PersonalNoPhoneTaskGroup();
-            taskGroup.setCreateTime(date);
-            taskGroup.setNextStep(1);
-            taskGroup.setTaskOrder(0);
-            taskGroup.setStatus("未下发");
-            taskGroup.setTname(bySql.getNickName() + " " + bySql.getWxId() + "发送个人号不请求任务消息给" + s);
-            taskGroup.setCurrentRobotId(bySql.getWxId());
-            taskGroup.setTotalStep(1);
-            taskGroup.setDb(DBTaskGroup);
-            boolean save = taskGroupService.add(taskGroup) > 0;
-            if (save) {
-                log.info("开始添加任务");
-                PersonalNoPhoneTask task = new PersonalNoPhoneTask();
-                task.setTname(bySql.getNickName() + " " + bySql.getWxId() + "发送个人号不请求任务消息给" + s);
-                task.setTaskGroupId(taskGroup.getId());
-                task.setContent(stringBuffer.toString());
-                task.setContentType("文字");
-                task.setStep(1);
-                task.setTaskType(100);
-                task.setRobotId(s);
                 task.setCreateTime(date);
                 task.setStatus("未下发");
                 task.setDb(DBTask);
