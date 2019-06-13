@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.warm.system.mapper.PersonalNoMessageSendFailureMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.warm.system.entity.PersonalNoMessageSendFailure">
+        <id column="id" property="id" />
+        <result column="personal_wx_id" property="personalWxId" />
+        <result column="user_wx_id" property="userWxId" />
+        <result column="failure_num" property="failureNum" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+    <insert id="add" parameterType="com.warm.system.entity.PersonalNoMessageSendFailure" useGeneratedKeys="true" keyProperty="entity.id">
+        insert into ${entity.db}
+          (id,personal_wx_id,user_wx_id,failure_num,deleted)
+        values
+          (#{entity.id},#{entity.personalWxId},#{entity.userWxId},#{entity.failureNum},#{entity.deleted})
+    </insert>
+
+    <update id="updateOne" parameterType="com.warm.system.entity.PersonalNoMessageSendFailure" useGeneratedKeys="true" keyProperty="entity.id">
+        UPDATE ${entity.db}
+        <set>
+            <if test="entity.personalWxId!=null">
+                personal_wx_id = #{entity.personalWxId},
+            </if>
+            <if test="entity.userWxId!=null">
+                user_wx_id = #{entity.userWxId},
+            </if>
+            <if test="entity.failureNum!=null">
+                failure_num = #{entity.failureNum},
+            </if>
+            <if test="entity.deleted!=null">
+                deleted = #{entity.deleted},
+            </if>
+        </set>
+        where id = #{entity.id}
+    </update>
+
+</mapper>

@@ -65,8 +65,10 @@ public class DaoGetSql {
             temsql.deleteCharAt(i);
             if(param instanceof String){
                 temsql.insert(i,"'" + param + "'");
-            }else{
+            }else if(param instanceof Integer){
                 temsql.insert(i,param);
+            }else{
+                temsql.insert(i, "''");
             }
         }
         return temsql.toString();
@@ -109,7 +111,7 @@ public class DaoGetSql {
             }
             if(integer instanceof String){
                 temp.append("'"+integer+"'");
-            }else {
+            }else if(integer instanceof Integer){
                 temp.append(integer);
             }
             b = true;

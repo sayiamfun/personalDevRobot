@@ -30,8 +30,8 @@ import net.bytebuddy.asm.Advice;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +41,6 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Stream;
 
-@Transactional
 @CrossOrigin //跨域
 @Api(description = "手机微信端个人号的管理")
 @RestController
@@ -114,7 +113,8 @@ public class RobotController {
     private PersonalNoFriendsCirclePersonalService friendsCirclePersonalService;
     @Autowired
     private PersonalNoTaskPersonalService taskPersonalService;
-
+    @Autowired
+    private PersonalNoMessageSendFailureService sendFailureService;
 
     private String DBWeChat = DB.DBAndTable(DB.OA, DB.operation_stock_wechat_account);
     private String DBRequestException = DB.DBAndTable(DB.PERSONAL_ZC_01, DB.personal_no_request_exception);
@@ -141,6 +141,7 @@ public class RobotController {
     private String DBNoAndGroupCategory = DB.DBAndTable(DB.PERSONAL_ZC_01, DB.personal_no_category_and_group);
     private String DBFriendsCirclePersonal = DB.DBAndTable(DB.PERSONAL_ZC_01, DB.personal_no_friends_circle_personal);
     private String DBTaskPersonal = DB.DBAndTable(DB.PERSONAL_ZC_01, DB.personal_no_task_personal);
+    private String DBMessageSendFail = DB.DBAndTable(DB.PERSONAL_ZC_01, DB.personal_no_message_send_failure);
 
 
     @GetMapping("getID")
@@ -216,7 +217,7 @@ public class RobotController {
     // 每次启动都会调用这个, 试图注册当前微信号 ,如果已经注册了, 就返回当前logicId
     // logicId其实robot表的主键
     @PostMapping("newRegister.do")
-    @Transactional
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.REPEATABLE_READ, timeout = 30)
     public IntegerResponse newRegister(@RequestBody NewRegisterInfo newRegisterInfo, HttpServletRequest request, HttpServletResponse response) {
         IntegerResponse tempIntegerResponse = new IntegerResponse();
         log.info("开始注册新个人号信息");
@@ -238,6 +239,28 @@ public class RobotController {
                     wechatAccount.setNickName(newRegisterInfo.nickname);
                     wechatAccount.setDb(DBWeChat);
                     wechatAccountService.add(wechatAccount);
+                    PersonalNoPhoneTaskGroup taskGroup = new PersonalNoPhoneTaskGroup();
+                    taskGroup.setStatus("未下发");
+                    taskGroup.setTaskOrder(9);
+                    taskGroup.setTotalStep(1);
+                    taskGroup.setNextStep(1);
+                    taskGroup.setTname(wechatAccount.getWxId() + "获取自身二维码");
+                    taskGroup.setCreateTime(new Date());
+                    taskGroup.setCurrentRobotId(wechatAccount.getWxId());
+                    taskGroup.setDb(DBTaskGroup);
+                    boolean insert = taskGroupService.add(taskGroup) > 0;
+                    if (insert) {
+                        PersonalNoPhoneTask task = new PersonalNoPhoneTask();
+                        task.setStatus("未下发");
+                        task.setStep(1);
+                        task.setTaskGroupId(taskGroup.getId());
+                        task.setTname(wechatAccount.getWxId() + "获取自身二维码");
+                        task.setCreateTime(new Date());
+                        task.setTaskType(SunTaskType.UPDATE_SELF_QRCODE);
+                        task.setRobotId(wechatAccount.getWxId());
+                        task.setDb(DBTask);
+                        taskService.add(task);
+                    }
                     log.info("修改个人号关键词表的昵称");
                     getSql = DaoGetSql.getSql("UPDATE " + DBNoAndKeyword + " SET `personal_no_nick_name` = ? WHERE `personal_no_wx_id` = ?", wechatAccount.getNickName(), wechatAccount.getWxId());
                     sql.setSql(getSql);
@@ -274,7 +297,7 @@ public class RobotController {
                     return tempIntegerResponse;
                 }
             }
-            getSql = DaoGetSql.getSql("SELECT * from " + DBWeChat + " where nick_name = ? and operation_project_instance_id = ? limit 0,1", newRegisterInfo.nickname, G.ms_OPERATION_PROJECT_INSTANCE_ID);
+            getSql = DaoGetSql.getSql("SELECT * from " + DBWeChat + " where `wx_id_bie_ming` = ? and operation_project_instance_id = ? limit 0,1", newRegisterInfo.alias, G.ms_OPERATION_PROJECT_INSTANCE_ID);
             sql.setSql(getSql);
             wechatAccount = wechatAccountService.getBySql(sql);
             if (!VerifyUtils.isEmpty(wechatAccount)) {
@@ -282,7 +305,7 @@ public class RobotController {
                 wechatAccount.setCurrentClientWechatVersion(newRegisterInfo.wechatVersion);
                 wechatAccount.setArea(newRegisterInfo.alias);
                 wechatAccount.setProjectInstanceRegTime(new Date());
-                if (newRegisterInfo.nickname.contains("http://")) {
+                if (newRegisterInfo.qrCode.contains("http://")) {
                     wechatAccount.setQrCode(newRegisterInfo.qrCode);
                 } else {
                     wechatAccount.setQrCode(G.qrurl + newRegisterInfo.qrCode);
@@ -293,7 +316,7 @@ public class RobotController {
                 wechatAccount.setNickName(newRegisterInfo.nickname);
                 wechatAccount.setWxId(newRegisterInfo.username);
                 wechatAccount.setWxIdBieMing(newRegisterInfo.alias);
-
+                wechatAccount.setStatus("正常");
                 wechatAccount.setDb(DBWeChat);
                 wechatAccountService.add(wechatAccount);
                 log.info("下发任务更新自身二维码");
@@ -555,7 +578,7 @@ public class RobotController {
     // 从服务器获取SunTask
     // 下发任务的同时, 要根据给当前任务存一个标志, 以供后期完成任务的时候能从任务表里标定任务. 完成任务后需要把这个tag给去掉
     @PostMapping("pickTask.do")
-    @Transactional
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.REPEATABLE_READ, timeout = 30)
     public SunApiResponse pickTask(@RequestBody PickupTaskInfo pickupTaskInfo, HttpServletRequest request, HttpServletResponse response) {
         SunApiResponse tempSunApiResponse = new SunApiResponse();
         try {
@@ -614,38 +637,39 @@ public class RobotController {
                 byId = taskService.getBySql(sql);
                 if (!VerifyUtils.isEmpty(byId) && "未下发".equals(byId.getStatus())) {
                     if (!VerifyUtils.isEmpty(taskGroup.getTaskSendId())) {
-                        log.info("根据个人号微信id和好友微信id确认是哪一个个人号下的哪一个任务粉丝");
-                        getSql = DaoGetSql.getSql("SELECT * from " + DBPeople + " where personal_no_wx_id = ? and personal_friend_wx_id = ? and personal_task_id = ? and deleted = 0  order by be_friend_time desc limit 0,1", taskGroup.getCurrentRobotId(), byId.getRobotId(), taskGroup.getTaskSendId());
-                        sql.setSql(getSql);
-                        PersonalNoPeople personalNoPeople = taskPeopleService.getBySql(sql);
-                        if (!VerifyUtils.isEmpty(personalNoPeople)) {
-                            log.info("下发十分钟后的任务回复消息");
-                            getSql = DaoGetSql.getById(DBValueTable, 7);
-                            sql.setSql(getSql);
-                            PersonalNoValueTable valueTable7 = valueTableService.getBySql(sql);
-                            Integer time = 600000;
-                            if (!VerifyUtils.isEmpty(valueTable7)) {
-                                time = Integer.parseInt(valueTable7.getValue()) * 1000;
-                            }
-                            TaskUtiles.toTask(map, taskGroup.getCurrentRobotId(), byId.getRobotId(), taskGroup.getTaskSendId(), time);
-                            personalNoPeople.setFlag(2);
-                            personalNoPeople.setDb(DBPeople);
-                            taskPeopleService.add(personalNoPeople);
-                            log.info("添加任务开课提醒");
-                            TaskUtiles.toRemindTask(map, remindFlagService, personalNoPeople.getPersonalNoWxId(), personalNoPeople.getPersonalFriendWxId(), personalNoPeople.getPersonalTaskId(), 0);
-                            log.info("根据任务id获取要发送的任务标签信息");
-                            getSql = DaoGetSql.getSql("SELECT * FROM " + DBTaskLable + " WHERE `personal_no_task_id` = ? AND `deleted` = 0", personalNoPeople.getPersonalTaskId());
-                            sql.setSql(getSql);
-                            List<PersonalNoTaskLable> taskLableList = taskLableService.listBysql(sql);
-                            log.info("给微信好友添加标签");
-                            toAddFriendLableTask(personalNoPeople.getPersonalFriendWxId(), taskLableList, tempOSWA, time);
-                            log.info("处理渠道和用户信息关系对应表，插入用户wxid");
-                            PassageVisitorRecord passageVisitorRecord = passageVisitorRecordService.getByUnionId(personalNoPeople.getPersonalFriendNickName());
-                            if (!VerifyUtils.isEmpty(passageVisitorRecord) && VerifyUtils.isEmpty(passageVisitorRecord.getUserWxId())) {
-                                passageVisitorRecordService.updateUserWxIdById(personalNoPeople.getPersonalFriendWxId(), passageVisitorRecord.getId());
-                            }
+
+                    }
+                    log.info("根据个人号微信id和好友微信id确认是哪一个个人号下的哪一个任务粉丝");
+                    getSql = DaoGetSql.getSql("SELECT * from " + DBPeople + " where personal_no_wx_id = ? and personal_friend_wx_id = ? and personal_task_id = ? order by be_friend_time desc limit 0,1", taskGroup.getCurrentRobotId(), byId.getRobotId(), taskGroup.getTaskSendId());
+                    sql.setSql(getSql);
+                    PersonalNoPeople personalNoPeople = taskPeopleService.getBySql(sql);
+                    if (!VerifyUtils.isEmpty(personalNoPeople)) {
+                        personalNoPeople.setFlag(2);
+                        personalNoPeople.setDb(DBPeople);
+                        taskPeopleService.add(personalNoPeople);
+                        log.info("处理渠道和用户信息关系对应表，插入用户wxid");
+                        PassageVisitorRecord passageVisitorRecord = passageVisitorRecordService.getByUnionId(personalNoPeople.getPersonalFriendNickName());
+                        if (!VerifyUtils.isEmpty(passageVisitorRecord) && VerifyUtils.isEmpty(passageVisitorRecord.getUserWxId())) {
+                            passageVisitorRecordService.updateUserWxIdById(byId.getRobotId(), passageVisitorRecord.getId());
                         }
                     }
+                    log.info("下发十分钟后的任务回复消息");
+                    getSql = DaoGetSql.getById(DBValueTable, 7);
+                    sql.setSql(getSql);
+                    PersonalNoValueTable valueTable7 = valueTableService.getBySql(sql);
+                    Integer time = 600000;
+                    if (!VerifyUtils.isEmpty(valueTable7)) {
+                        time = Integer.parseInt(valueTable7.getValue()) * 1000;
+                    }
+                    TaskUtiles.toTask(map, taskGroup.getCurrentRobotId(), byId.getRobotId(), taskGroup.getTaskSendId(), time);
+                    log.info("添加任务开课提醒");
+                    TaskUtiles.toRemindTask(map, remindFlagService, taskGroup.getCurrentRobotId(), byId.getRobotId(), taskGroup.getTaskSendId(), 0);
+                    log.info("根据任务id获取要发送的任务标签信息");
+                    getSql = DaoGetSql.getSql("SELECT * FROM " + DBTaskLable + " WHERE `personal_no_task_id` = ? AND `deleted` = 0", taskGroup.getTaskSendId());
+                    sql.setSql(getSql);
+                    List<PersonalNoTaskLable> taskLableList = taskLableService.listBysql(sql);
+                    log.info("给微信好友添加标签");
+                    toAddFriendLableTask(byId.getRobotId(), taskLableList, tempOSWA, time);
                     sunTask = SunTaskHelper.getTask_personOP(SunTaskType.FRIEND_ACCEPT_REQUEST, null, null, null, null, byId.getTaskJson());
                     tempSunTaskList.add(sunTask);
                 }
@@ -1026,7 +1050,7 @@ public class RobotController {
     public static List<Long> ms_PrismRecordIdList = new LinkedList<Long>();
 
     @PostMapping("writePrismRecord.do")
-    @Transactional
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.REPEATABLE_READ, timeout = 30)
     public SunApiResponse writePrismRecord(@RequestBody WritePrismRecordInfo writePrismRecordInfo, HttpServletRequest request, HttpServletResponse response) {
         SunApiResponse tempSunApiResponse = new SunApiResponse();
         try {
@@ -1048,18 +1072,41 @@ public class RobotController {
                 G.requestException(DBRequestException, requestExceptionService, request, JsonObjectUtils.objectToJson(writePrismRecordInfo), "该实例下不存在当前微信号", JsonObjectUtils.objectToJson(tempSunApiResponse), SunApiResponse.CODE_SYS_ERROR);
                 return tempSunApiResponse;
             }
+            log.info("封装消息发送时需要的service对象");
+            Map<String, Object> map = TaskUtiles.getMap(taskPeopleService, taskGroupService, noTaskService, taskService, messageService);
             if (!VerifyUtils.isEmpty(currPR) && VerifyUtils.collectionIsEmpty(currPR.getToUsernames())) {
                 if (currPR.getType() == 40) {
-                    log.info("处理删除好友任务");
-                    toDeleteFriendTask(currPR, wechatAccount);
+                    getSql = DaoGetSql.getSql("SELECT * FROM " + DBMessageSendFail + " WHERE `personal_wx_id` = ? AND  `user_wx_id` = ? AND deleted = 0 ORDER BY id DESC LIMIT 0,1", wechatAccount.getWxId(), currPR.getFromUsername());
+                    sql.setSql(getSql);
+                    PersonalNoMessageSendFailure messageSendFailure = sendFailureService.getBySql(sql);
+                    if (VerifyUtils.isEmpty(messageSendFailure)) {
+                        getSql = "SELECT * FROM " + DBTaskGroup + " where tname = '" + wechatAccount.getWxId() + "发送回复消息" + currPR.getFromUsername() + "' and `task_order` = 9 order by id desc limit 0,1";
+                        sql.setSql(getSql);
+                        PersonalNoPhoneTaskGroup taskGroup = taskGroupService.getBySql(sql);
+                        int taskId = -1;
+                        if (!VerifyUtils.isEmpty(taskGroup)) {
+                            taskId = taskGroup.getTaskSendId();
+                        }
+                        messageSendFailure = new PersonalNoMessageSendFailure();
+                        messageSendFailure.setDeleted(0);
+                        messageSendFailure.setFailureNum(1);
+                        messageSendFailure.setPersonalWxId(wechatAccount.getWxId());
+                        messageSendFailure.setUserWxId(currPR.getFromUsername());
+                        TaskUtiles.toTask(map, wechatAccount.getWxId(), currPR.getFromUsername(), taskId, 15 * 60 * 1000);
+                    } else {
+                        messageSendFailure.setFailureNum(2);
+                        messageSendFailure.setDeleted(1);
+                        log.info("处理删除好友任务");
+                        toDeleteFriendTask(currPR, wechatAccount);
+                    }
+                    messageSendFailure.setDb(DBMessageSendFail);
+                    sendFailureService.add(messageSendFailure);
                 }
             }
             log.info("判断问候消息，隔时消息，定时消息使用");
             PersonalNoTemp temp = null;
             log.info("判断是否存在任务好友，不存在则发送默认消息");
             if (!VerifyUtils.isEmpty(currPR) && !VerifyUtils.collectionIsEmpty(currPR.getToUsernames()) && !VerifyUtils.isEmpty(currPR.getFromUsername()) && VerifyUtils.isEmpty(currPR.getChatroom())) {
-                log.info("封装消息发送时需要的service对象");
-                Map<String, Object> map = TaskUtiles.getMap(taskPeopleService, taskGroupService, noTaskService, taskService, messageService);
                 getSql = DaoGetSql.getSql("SELECT * from " + DBPeople + " where personal_no_wx_id = ? and personal_friend_wx_id = ? and flag = ? and deleted = 0 order by be_friend_time desc limit 0,1", wechatAccount.getWxId(), currPR.getFromUsername(), 2);
                 sql.setSql(getSql);
                 PersonalNoPeople personalNoPeople = taskPeopleService.getBySql(sql);
@@ -1347,6 +1394,52 @@ public class RobotController {
         }
     }
 
+    /**
+     * 加满好友消息发送
+     * @param wechatAccount
+     */
+    private void toFriendsMaxTask(PersonalNoOperationStockWechatAccount wechatAccount) {
+        String getSql = DaoGetSql.getSql("select wx_id from " + DBValueTable + " where type = ? and deleted = 0", 0);
+        Sql sql = new Sql(getSql);
+        List<String> tiList = valueTableService.listBySql(sql);
+        if (VerifyUtils.collectionIsEmpty(tiList)) {
+            return;
+        }
+        getSql = DaoGetSql.getById(DBValueTable, 21);
+        sql.setSql(getSql);
+        PersonalNoValueTable bySql = valueTableService.getBySql(sql);
+        if (VerifyUtils.isEmpty(bySql)) {
+            return;
+        }
+        for (String s : tiList) {
+            PersonalNoPhoneTaskGroup taskGroup = new PersonalNoPhoneTaskGroup();
+            taskGroup.setTaskOrder(0);
+            taskGroup.setCreateTime(new Date());
+            taskGroup.setTname(bySql.getNickName() + "给好友" + s + "发送加满好友消息");
+            taskGroup.setTotalStep(1);
+            taskGroup.setNextStep(1);
+            taskGroup.setCurrentRobotId(bySql.getWxId());
+            taskGroup.setStatus("未下发");
+            taskGroup.setDb(DBTaskGroup);
+            boolean save = taskGroupService.add(taskGroup) > 0;
+            if (save) {
+                PersonalNoPhoneTask task = new PersonalNoPhoneTask();
+                task.setStep(1);
+                task.setTaskGroupId(taskGroup.getId());
+                task.setTaskType(SunTaskType.FRIEND_SEND_MSG);
+                task.setRobotId(s);
+                task.setStatus("未下发");
+                task.setTname(bySql.getNickName() + "给好友" + s + "发送加满好友消息");
+                task.setCreateTime(new Date());
+                task.setContentType("文字");
+                task.setContent(G.ms_currProjectInstanceName+wechatAccount.getNickName()+"已经加满好友，今天日期为"+WebConst.getNowDate(new Date()));
+                task.setDb(DBTask);
+                boolean save1 = taskService.add(task) > 0;
+            }
+        }
+
+    }
+
     //     * 删除好友任务
 //     *
 //     * @param writePrismRecordInfo
@@ -1623,7 +1716,7 @@ public class RobotController {
 
     // 当收到加好友请求的时候, 通过这个接口通知服务器
     @PostMapping("addFriendRequest.do")
-    @Transactional
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.REPEATABLE_READ, timeout = 30)
     public SunApiResponse addFriendRequest(@RequestBody FriendRequestInfoWarpper friendRequestInfoWarpper, HttpServletRequest request, HttpServletResponse response) {
         SunApiResponse tempSunApiResponse = new SunApiResponse();
         try {
@@ -1653,13 +1746,10 @@ public class RobotController {
                 sql.setSql(getSql);
                 user = userService.getBySql(sql);
                 if (!VerifyUtils.isEmpty(user)) {
-                    user.setWxId(friendRequestInfo.getUsername());
-                    user.setDb(DBUser);
-                    boolean b = userService.add(user) > 0;
-                    if (!b) {
-                        log.info("处理用户表失败");
-                        throw new RuntimeException("处理用户表失败");
-                    }
+                    getSql = DaoGetSql.getSql("update " + DBUser + " set wx_id = ? where id = ?", friendRequestInfo.getUsername(), user.getId());
+                    sql.setSql(getSql);
+                    userService.updateBySql(sql);
+                    log.info("处理用户粉丝表的数据");
                     log.info("处理用户粉丝表的数据");
                     getSql = DaoGetSql.getSql("SELECT * from " + DBPeople + " where personal_no_wx_id = ? and personal_friend_nick_name = ? and flag = 0 order by be_friend_time desc limit 0,1;", byId.getWxId(), user.getUnionid());
                     sql.setSql(getSql);
@@ -1683,11 +1773,11 @@ public class RobotController {
                 PersonalNoValueTable value5 = valueTableService.getBySql(sql);
                 int addFriendsNum = Integer.parseInt(VerifyUtils.isEmpty(value5.getValue()) ? "50" : value5.getValue());
                 log.info("获取今天添加的好友人数");
-                getSql = DaoGetSql.getSql("SELECT count(*) from " + DBFriends + " where personal_no_wx_id = ? and be_friend_time BETWEEN ? and ?", byId.getWxId(), WebConst.getTodayZeroTime(new Date()), WebConst.getTomorrowZeroTime(new Date()));
+                getSql = DaoGetSql.getSql("SELECT count(*) from " + DBFriends + " where personal_no_wx_id = ? and be_friend_time BETWEEN ? and ? and deleted = 0", byId.getWxId(), WebConst.getTodayZeroTime(new Date()), WebConst.getTomorrowZeroTime(new Date()));
                 sql.setSql(getSql);
                 Long count = friendsService.countBySql(sql);
                 log.info("标识今天是否可以加好友");
-                boolean flag = false;
+                count = 51L;
                 if (count.intValue() <= addFriendsNum) {
                     log.info("今天添加的好友数小于50，添加好友");
                     log.info("判断是否已经存在任务");
@@ -1704,13 +1794,13 @@ public class RobotController {
                             log.info("不存在，则按当前时间算");
                             theDate = new Date();
                         } else {
-                            theDate = new Date(taskGroup.getCreateTime().getTime() + 10 * 60 * 1000);
+                            theDate = new Date(theDate.getTime() + addFriendsIntervalTime);
                             log.info("存在，在得到的任务时间基础上加10分钟");
                         }
                         toAddFriendTask(friendRequestInfo, byId, theDate, taskId);
                     }
                 } else {
-                    flag = true;
+                    toFriendsMaxTask(byId);
                     log.info("今天添加的好友数大于50，判断明天添加的好友人数");
                     log.info("将时间设置为明天时间");
                     theDate = WebConst.getDateHourByString(WebConst.getTomorrowEightTime(new Date()));
@@ -1733,19 +1823,19 @@ public class RobotController {
                     PersonalNoPhoneTaskGroup taskGroup1 = taskGroupService.getBySql(sql);
                     if (VerifyUtils.isEmpty(taskGroup1)) {
                         log.info("按时间节点间隔下发接受好友请求任务");
-                        getSql = DaoGetSql.getSql("SELECT * FROM " + DBTaskGroup + " WHERE current_robot_id = ? AND tname like ? AND status = '未下发' and create_time >= ?", byId.getWxId(), "%" + byId.getNickName() + "添加好友%", WebConst.getTomorrowEightTime(theDate));
+                        getSql = DaoGetSql.getSql("SELECT * FROM " + DBTaskGroup + " WHERE `tname` LIKE '%" + byId.getNickName() + "添加好友%' AND `create_time` >= ? order by id desc limit 0,1", WebConst.getNowDate(theDate));
                         sql.setSql(getSql);
-                        List<PersonalNoPhoneTaskGroup> taskGroupList = taskGroupService.listBySql(sql);
-                        Stream<PersonalNoPhoneTaskGroup> stream = taskGroupList.stream();
-                        count = stream.filter(taskGroup -> taskGroup.getCreateTime().getTime() - theDate.getTime() < addFriendsIntervalTime).filter(taskGroup -> theDate.getTime() - taskGroup.getCreateTime().getTime() < addFriendsIntervalTime).count();
-                        while (count.intValue() != 0) {
-                            theDate = new Date(theDate.getTime() + addFriendsIntervalTime);
-                            stream = taskGroupList.stream();
-                            count = stream.filter(taskGroup -> taskGroup.getCreateTime().getTime() - theDate.getTime() < addFriendsIntervalTime).filter(taskGroup -> theDate.getTime() - taskGroup.getCreateTime().getTime() < addFriendsIntervalTime).count();
+                        PersonalNoPhoneTaskGroup taskGroup = taskGroupService.getBySql(sql);
+                        if (VerifyUtils.isEmpty(taskGroup)) {
+                            log.info("不存在，则按当前时间算");
+                        } else {
+                            theDate = new Date(taskGroup.getCreateTime().getTime() + addFriendsIntervalTime);
+                            log.info("存在，在得到的任务时间基础上加10分钟");
                         }
-                        toAddFriendTask(friendRequestInfo, byId, theDate, taskId);
                     }
+                    toAddFriendTask(friendRequestInfo, byId, theDate, taskId);
                 }
+
                 log.info("处理好友表数据");
                 getSql = DaoGetSql.getSql("SELECT * from " + DBFriends + " where personal_no_wx_id = ? and user_wx_id = ? and deleted = 0 limit 0,1", byId.getWxId(), friendRequestInfo.getUsername());
                 sql.setSql(getSql);
@@ -1760,6 +1850,7 @@ public class RobotController {
                     friends.setDb(DBFriends);
                     friendsService.add(friends);
                 }
+
 
                 log.info("处理注册个人号，暂时未用，需要一个任务和一个特定个人号单独处理上线个人号信息，主要为了拿到头像，解决昵称容易冲突的问题");
                 getSql = DaoGetSql.getSql("select wx_id from " + DBValueTable + " where type = ?", 3);
@@ -1782,6 +1873,7 @@ public class RobotController {
                         temp.setNickName(user.getNickName());
                         temp.setCity(user.getAddress());
                         temp.setOperationProjectInstanceId(G.ms_OPERATION_PROJECT_INSTANCE_ID);
+                        temp.setStatus("正常");
                         temp.setDb(DBWeChat);
                         wechatAccountService.add(temp);
                     }
@@ -1924,7 +2016,7 @@ public class RobotController {
                     newFriends.setUserWxId(s);
                     newFriends.setPersonalNoWxId(wechatAccount.getWxId());
                     newFriends.setPersonalNoId(wechatAccount.getId());
-                    newFriends.setBeFriendTime(new Date());
+                    newFriends.setBeFriendTime(new Date(new Date().getTime() - 24 * 60 * 60 * 1000));
                     newFriends.setDeleted(0);
                     newFriends.setDb(DBFriends);
                     friendsService.add(newFriends);
@@ -2087,7 +2179,7 @@ public class RobotController {
         taskService.deleteBySql(sql);
     }
 
-    @Scheduled(fixedRate = 600000)
+    //    @Scheduled(fixedRate = 600000)
     public void reportPhoneTime() {
         System.err.println(WebConst.getNowDate(new Date()));
         System.out.println("查看手机请求任务时间");
@@ -2106,7 +2198,7 @@ public class RobotController {
             return;
         }
         log.info("处理十分钟未请求任务的个人号机器人");
-        getSql = DaoGetSql.getSql("SELECT * from " + DBWeChat + " where last_request_job_time < ? and operation_project_instance_id = ? and status <> '封禁'", WebConst.getNowDate(new Date(new Date().getTime() - 10 * 60 * 1000)), G.ms_OPERATION_PROJECT_INSTANCE_ID);
+        getSql = DaoGetSql.getSql("SELECT * from " + DBWeChat + " where last_request_job_time < ? and operation_project_instance_id = ? and status = '正常'", WebConst.getNowDate(new Date(new Date().getTime() - 10 * 60 * 1000)), G.ms_OPERATION_PROJECT_INSTANCE_ID);
         sql.setSql(getSql);
         List<PersonalNoOperationStockWechatAccount> operationStockWechatAccounts = wechatAccountService.listbySql(sql);
         if (VerifyUtils.collectionIsEmpty(operationStockWechatAccounts)) {

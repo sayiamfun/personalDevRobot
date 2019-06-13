@@ -41,4 +41,9 @@ public class PersonalNoUserServiceImpl extends ServiceImpl<PersonalNoUserMapper,
         return userMapper.getBySql(sql);
     }
 
+    @Override
+    public Integer updateBySql(Sql sql) {
+        return userMapper.updateBySql(sql);
+    }
+
 }

@@ -25,4 +25,7 @@ public interface PersonalNoUserMapper extends BaseMapper<PersonalNoUser> {
 
     @Select("${sql}")
     PersonalNoUser getBySql(Sql sql);
+
+    @Update("${sql}")
+    Integer updateBySql(Sql sql);
 }

@@ -55,6 +55,7 @@ public class TaskUtiles {
             taskGroup.setTname(personalWxId + "发送回复消息" + userWxId);
             taskGroup.setCurrentRobotId(personalWxId);
             taskGroup.setTotalStep(taskById.getNoTaskReplyContentList().size());
+            taskGroup.setTaskSendId(taskId);
             taskGroup.setDb(DBTaskGroup);
             boolean save = taskGroupService.add(taskGroup)>0;
             if (save) {
@@ -168,11 +169,6 @@ public class TaskUtiles {
             return;
         }
         PersonalNoPhoneTaskGroupService taskGroupService = (PersonalNoPhoneTaskGroupService) map.get("taskGroupService");
-        String getsql = "SELECT * FROM "+DBTaskGroup+" where tname LIKE '%"+s+"发送个人号消息"+fromUsername+"%' and create_time > '"+WebConst.getNowDate(new Date(new Date().getTime()-600000))+"' and status = '未下发' order by id desc limit 0,1";
-        PersonalNoPhoneTaskGroup taskGroup = taskGroupService.getBySql(new Sql(getsql));
-        if(!VerifyUtils.isEmpty(taskGroup)) {
-           return;
-        }
         PersonalNoMessageService messageService = (PersonalNoMessageService) map.get("messageService");
         PersonalNoPhoneTaskService taskService = (PersonalNoPhoneTaskService) map.get("TaskService");
         PersonalNoMessage message = messageService.getById(messageId);
@@ -180,7 +176,7 @@ public class TaskUtiles {
             return;
         }
         log.info("将个人号对应消息转换为任务任务组");
-        taskGroup = new PersonalNoPhoneTaskGroup();
+        PersonalNoPhoneTaskGroup taskGroup = new PersonalNoPhoneTaskGroup();
         taskGroup.setNextStep(1);
         taskGroup.setCreateTime(new Date(new Date().getTime() + i));
         taskGroup.setTaskOrder(9);

@@ -69,6 +69,7 @@ public class DB {
     public static String personal_no_phone_task_group_finish = "personal_no_phone_task_group_finish";
     public static String personal_no_phone_task_finish = "personal_no_phone_task_finish";
     public static String personal_no_phone_request_exception = "personal_no_phone_request_exception";
+    public static String personal_no_message_send_failure = "personal_no_message_send_failure";
 
 
     public static String group_category = "group_category";

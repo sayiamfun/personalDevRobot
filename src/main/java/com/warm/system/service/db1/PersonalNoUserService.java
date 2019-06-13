@@ -19,4 +19,6 @@ public interface PersonalNoUserService extends IService<PersonalNoUser> {
     Integer add(PersonalNoUser user);
 
     PersonalNoUser getBySql(Sql sql);
+
+    Integer updateBySql(Sql sql);
 }
