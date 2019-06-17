@@ -2,20 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed2a3698-552d-40f5-9e89-e048bfca0e69" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/entity/PersonalNoMessageSendFailure.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoMessageSendFailureMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoMessageSendFailureService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoMessageSendFailureServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Mapper/PersonalNoMessageSendFailureMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/warm/entity/robot/ResponseInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/entity/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/entity/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/entity/robot/common/WeChatMsgType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/entity/robot/common/WeChatMsgType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/controller/RobotController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/controller/RobotController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoUserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoUserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/utils/DaoGetSql.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/utils/DaoGetSql.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/warm/utils/TaskUtiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/warm/utils/TaskUtiles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/warm/generator/MpGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/warm/generator/MpGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/warm/system/controller/RobotController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/warm/system/controller/RobotController.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -47,8 +38,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/controller/RobotController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="1823" selection-start-line="1823" selection-end-line="1823" />
+            <state relative-caret-position="373">
+              <caret line="796" column="54" lean-forward="true" selection-start-line="796" selection-start-column="54" selection-end-line="796" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -57,10 +48,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/entity/robot/ResponseInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="5" column="28" lean-forward="true" selection-start-line="3" selection-start-column="4" selection-end-line="5" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/entity/robot/common/WeChatMsgType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/utils/DaoGetSql.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="34" column="31" lean-forward="true" selection-end-line="151" />
+            <state relative-caret-position="608">
+              <caret line="34" column="31" selection-end-line="151" />
             </state>
           </provider>
         </entry>
@@ -68,7 +77,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoValueTableServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
+            <state relative-caret-position="380">
               <caret line="29" selection-start-line="29" selection-end-line="29" />
               <folding>
                 <element signature="e#900#901#0" expanded="true" />
@@ -84,7 +93,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoUserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
+            <state relative-caret-position="304">
               <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
             </state>
           </provider>
@@ -93,7 +102,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoUserServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
+            <state relative-caret-position="589">
               <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
               <folding>
                 <element signature="e#1161#1162#0" expanded="true" />
@@ -108,7 +117,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoUserMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
+            <state relative-caret-position="399">
               <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
             </state>
           </provider>
@@ -117,7 +126,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/application-dev.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
+            <state relative-caret-position="38">
               <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
             </state>
           </provider>
@@ -172,7 +181,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoPhoneRequestExceptionService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/warm/system/entity/PersonalNoPhoneRequestException.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoPhoneRequestExceptionServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/Mapper/PersonalNoPhoneRequestExceptionMapper.xml" />
@@ -222,6 +230,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoUserServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoUserMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/warm/utils/DaoGetSql.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/warm/entity/robot/common/WeChatMsgType.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/warm/system/controller/RobotController.java" />
       </list>
     </option>
@@ -251,10 +260,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="735" />
-    <option name="y" value="708" />
-    <option name="width" value="1380" />
-    <option name="height" value="726" />
+    <option name="x" value="490" />
+    <option name="y" value="472" />
+    <option name="width" value="920" />
+    <option name="height" value="484" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -262,7 +271,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -331,6 +339,17 @@
               <item name="personalDevRobot" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="warm" type="462c0819:PsiDirectoryNode" />
+              <item name="system" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PersonalDevRobot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="personalDevRobot" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -358,6 +377,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -371,28 +391,28 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../QB/personalQBRobot" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.general" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\myproject\Idea\dev\personalDevRobot\src\main\java\com\warm\system\mapper\xml" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.warm.entity.robot" />
+      <recent name="com.warm.system.service.impl" />
+      <recent name="com.warm.system.service.db1" />
+      <recent name="com.warm.system.mapper" />
+      <recent name="com.warm.system.entity" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\myproject\Idea\dev\personalDevRobot\src\main\java\com\warm\system\service\impl" />
       <recent name="F:\myproject\Idea\dev\personalDevRobot\src\main\java\com\warm\system\service\db1" />
       <recent name="F:\myproject\Idea\dev\personalDevRobot\src\main\java\com\warm\system\mapper" />
       <recent name="F:\myproject\Idea\dev\personalDevRobot\src\main\java\com\warm\system\entity" />
       <recent name="F:\myproject\Idea\dev\personalDevRobot\src\main\resources\Mapper" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.warm.system.service.impl" />
-      <recent name="com.warm.system.service.db1" />
-      <recent name="com.warm.system.mapper" />
-      <recent name="com.warm.system.entity" />
-      <recent name="com.warm.utils" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\myproject\Idea\dev\personalDevRobot\src\main\java\com\warm\system\mapper\xml" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -510,6 +530,8 @@
       <workItem from="1559964837835" duration="17000" />
       <workItem from="1560156411373" duration="2789000" />
       <workItem from="1560318118872" duration="8504000" />
+      <workItem from="1560487777174" duration="2970000" />
+      <workItem from="1560515496691" duration="3659000" />
     </task>
     <servers />
   </component>
@@ -546,14 +568,14 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="440717000" />
+    <option name="totallyTimeSpent" value="447346000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="2575" height="1415" extended-state="6" />
+    <frame x="-8" y="-8" width="1216" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.46063912" visible="true" weight="0.1731688" />
-      <window_info id="Structure" order="1" sideWeight="0.5393609" side_tool="true" visible="true" weight="0.1731688" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.45822102" visible="true" weight="0.3797578" />
+      <window_info id="Structure" order="1" sideWeight="0.541779" side_tool="true" visible="true" weight="0.3797578" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -578,7 +600,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.032245222" />
+      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.0700692" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Database" order="6" weight="0.049207397" />
@@ -592,16 +614,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoCategoryAndGroupMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="31" column="18" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/entity/PersonalNoFriendsCirclePersonal.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoFriendsCirclePersonalMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -943,16 +955,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/entity/robot/common/WeChatMsgType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/utils/DaoGetSql.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="34" column="31" selection-end-line="151" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoValueTableServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="e#900#901#0" expanded="true" />
+            <element signature="e#960#961#0" expanded="true" />
+            <element signature="e#1014#1015#0" expanded="true" />
+            <element signature="e#1081#1082#0" expanded="true" />
+            <element signature="e#1142#1143#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/service/db1/PersonalNoUserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
+        <state relative-caret-position="304">
           <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoUserServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
+        <state relative-caret-position="589">
           <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
           <folding>
             <element signature="e#1161#1162#0" expanded="true" />
@@ -965,43 +1005,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/mapper/PersonalNoUserMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
+        <state relative-caret-position="399">
           <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application-dev.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
+        <state relative-caret-position="38">
           <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/service/impl/PersonalNoValueTableServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/entity/robot/ResponseInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-          <folding>
-            <element signature="e#900#901#0" expanded="true" />
-            <element signature="e#960#961#0" expanded="true" />
-            <element signature="e#1014#1015#0" expanded="true" />
-            <element signature="e#1081#1082#0" expanded="true" />
-            <element signature="e#1142#1143#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/utils/DaoGetSql.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="34" column="31" lean-forward="true" selection-end-line="151" />
+        <state relative-caret-position="95">
+          <caret line="5" column="28" lean-forward="true" selection-start-line="3" selection-start-column="4" selection-end-line="5" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/warm/system/controller/RobotController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="1823" selection-start-line="1823" selection-end-line="1823" />
+        <state relative-caret-position="373">
+          <caret line="796" column="54" lean-forward="true" selection-start-line="796" selection-start-column="54" selection-end-line="796" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

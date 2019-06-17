@@ -6,7 +6,7 @@ package com.warm.entity.robot.common;
 public class WeChatMsgType
 {
     public static final int WECHAT_MESSAGE_TYPE_TEXT = 1;      //1	文本信息
-    public static final int WECHAT_MESSAGE_TYPE_IMG = 3;   	//图片信息    
+    public static final int WECHAT_MESSAGE_TYPE_IMG = 3;   	//图片信息
     public static final int WECHAT_MESSAGE_TYPE_VOICE = 34;    //语音消息
     public static final int WECHAT_MESSAGE_TYPE_CONTACT_CARD = 42;  //名片
     public static final int WECHAT_MESSAGE_TYPE_VIDEO = 43;    // 视频

@@ -1,5 +1,6 @@
 package com.warm.system.controller;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.aliyun.oss.common.auth.ServiceSignature;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.auth.sts.AssumeRoleRequest;
@@ -14,6 +15,7 @@ import com.warm.entity.R;
 import com.warm.entity.Sql;
 import com.warm.entity.TuLingEntity.TuLingResult;
 import com.warm.entity.robot.G;
+import com.warm.entity.robot.ResponseInfo;
 import com.warm.entity.robot.common.SunTaskType;
 import com.warm.entity.robot.common.WeChatMsgType;
 import com.warm.entity.robot.requestInfo.*;
@@ -794,7 +796,11 @@ public class RobotController {
             String[] split = byId.getContent().split("/");
             String groupWxId = "16768948111@chatroom";
             if (split.length > 1) {
-                groupWxId = wxGroupService.getByCategoryId(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
+                String s = HttpClientUtil.sendGet("http://www.youyoudk.cn/SpringBootService/getGroup?category_id="+Integer.parseInt(split[1]));
+                ResponseInfo responseInfo = JsonObjectUtils.jsonToPojo(s, ResponseInfo.class);
+                if (responseInfo.code == 0 && null != responseInfo.data) {
+                    groupWxId = responseInfo.data.toString();
+                }
                 toGroupSunTask = SunTaskHelper.getTask_chatroomOP(SunTaskType.CHATROOM_INVITE_LT40_DIRECT, groupWxId, toUsernames, null);
             }
             toGroupSunTask = SunTaskHelper.getTask_chatroomOP(SunTaskType.CHATROOM_INVITE_LT40_DIRECT, groupWxId, toUsernames, null);
@@ -868,6 +874,7 @@ public class RobotController {
                 }
                 sunTask.setWeChatMsgType(WeChatMsgType.WECHAT_MESSAGE_TYPE_MSG_CARD);
             } else if ("文件".equals(byId.getContentType())) {
+                //手机端暂未实现，无法发送文件
                 sunTask.setWeChatMsgType(WeChatMsgType.WECHAT_MESSAGE_TYPE_IMG);
             } else if ("语音消息".equals(byId.getContentType())) {
                 sunTask.setWeChatMsgType(WeChatMsgType.WECHAT_MESSAGE_TYPE_VOICE);
@@ -2142,7 +2149,7 @@ public class RobotController {
         }
     }
 
-    @Scheduled(fixedRate = 300000)
+//    @Scheduled(fixedRate = 300000)
     public void reportCurrentTime() {
         System.err.println(WebConst.getNowDate(new Date()));
         System.out.println("转移完成的任务和任务组");
